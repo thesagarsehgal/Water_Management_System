@@ -1,0 +1,163 @@
+/*@import "bourbon";
+
+$color-lightgrey: #eee;
+*/
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+body {
+  background: #eee;
+}
+
+h1 {
+  font-size: 5vw;
+  margin: 1em 0 0.9em;
+  color: #333;
+  border-bottom: 2px solid #666;
+  display: inline;
+  padding: 0 0 .2em;
+}
+
+p {
+  font-size: 3vw;
+  margin: 1em 0 1em;
+  color: #999;
+}
+
+.sect {
+  margin: 0 auto;
+  text-align: center;
+  display: table;
+  vertical-align: middle;
+  height: 100vh;
+}
+.sect > div {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.piesite {
+  display: inline-block;
+  background-color: white;
+  position: relative;
+  width: 1em;
+  height: 1em;
+  font-size: 6em;
+  cursor: default;
+  -webkit-box-sizing: p;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.percent {
+  position: absolute;
+  top: 1.1em;
+  left: 0;
+  width: 100%;
+  font-size: .3em;
+  text-align: center;
+  z-index: 2;
+}
+
+.piesite > .percent .dec {
+  font-size: 0.8em;
+}
+
+.piesite > #slice {
+  position: absolute;
+  width: 1em;
+  height: 1em;
+  clip: rect(0px, 1em, 1em, 0.5em);
+}
+
+.piesite > #slice.gt50 {
+  clip: rect(auto, auto, auto, auto);
+}
+
+.piesite > #slice > .pie {
+  position: absolute;
+  border: .1em solid #444;
+  width: .8em;
+  height: .8em;
+  clip: rect(0em, 0.5em, 1em, 0em);
+  border-radius: .5em;
+}
+
+li.design .piesite > #slice > .pie {
+  border-color: #df6c4f;
+}
+
+li.creativity .piesite > #slice > .pie {
+  border-color: #3c948b;
+}
+
+li.usability .piesite > #slice > .pie {
+  border-color: #ecd06f;
+}
+
+li.content .piesite > #slice > .pie {
+  border-color: #1a99aa;
+}
+
+.piesite > #slice > .pie.fill {
+  -webkit-transform: rotate(180deg) !important;
+  transform: rotate(180deg) !important;
+}
+
+.piesite.fill > .percent {
+  display: none;
+}
+
+.piesite:after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: .1em;
+  left: .1em;
+  width: .8em;
+  height: .8em;
+  background: white;
+  border-radius: 100%;
+  z-index: 1;
+}
+
+.piesite:before {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 1em;
+  height: 1em;
+  border-radius: .5em;
+  opacity: .5;
+  z-index: 0;
+}
+
+li.design .piesite:before {
+  background: #df6c4f;
+}
+
+li.creativity .piesite:before {
+  background: #3c948b;
+}
+
+li.usability .piesite:before {
+  background: #ecd06f;
+}
+
+li.content .piesite:before {
+  background: #1a99aa;
+}
+
+li.total .piesite:before {
+  background: #cfd1d0;
+}
+
+.box-piesite ul li {
+  float: left;
+  margin-right: 10px;
+}
+
+/*--------------------------------------------*/

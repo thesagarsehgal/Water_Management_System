@@ -1,0 +1,336 @@
+<html>
+<head>
+	<!--   icon   -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- pie start-->
+<link rel='stylesheet prefetch' href='https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css'>
+<script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+{%load static%}
+<link rel="stylesheet" href="{% static 'wms/dashboard/pie.css'%}">
+<!-- pie end -->
+<link rel="stylesheet" href="{% static 'wms/dashboard/weather.css'%}">
+<!--    sidebar starts -->
+
+<style>
+#a{
+	background-repeat: no-repeat;
+}
+
+#open{
+	width:100%;
+	background: linear-gradient(#42647F,#3B6AA0) ;
+	height:70px;
+}
+#t1{
+	position: absolute;
+  	top: 70px;
+  	
+  	border-top: 0px;
+  	padding-top: 0px;
+}
+#h3{
+	color:grey;
+
+}
+.sidebar1 {
+   
+    /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#F8F8F8, #FFFFFF);
+    /* Standard syntax */
+    padding: 0px;
+    min-height: 100%;
+}
+
+.logo {
+    margin-top:0.33em;
+    background: #EE3B3B;
+    width:18.58%;
+    color: white;
+    padding: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    border: 0px solid white;
+    font-size: 30px;
+    border-radius: 0%;
+    position: absolute; 
+  	top: 0em;
+  	left: 00px;
+}
+.list{
+	position: absolute;
+	top: 5em;
+    color: #fff;
+    left:0px;
+    list-style: none;
+    padding-left: 0px;
+ 	display: inline-block;
+    font-size: 22px;
+    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+}
+.list> a {
+  display: block;
+}
+
+a{
+	text-decoration: none;
+	color: #332f2e;
+}
+a:hover, a:active {
+    text-decoration: none;
+    color: grey;
+}
+.list::first-line {
+    color: rgba(255, 255, 255, 0.5);
+}
+.list> li, h5 {
+	color: grey;
+    padding: 5px 0px 5px 40px;
+}
+.list>li:hover {
+    background-color: rgb(192,192,192,0.2);
+    border-left: 4px solid grey;
+    color: black;
+    font-weight: bolder;
+    padding-left: 55px;
+}
+
+
+#map{
+    height: 300px;
+    width: 51.5%;
+    position: absolute;
+	float: right; 
+  	top: 430px;
+    }
+.setTitle{
+	position: relative; 
+  	left: 0.5em;
+  	font-size: 25px;
+  	color: grey;
+  	font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+}
+.graph1{
+	position: absolute;
+	float: right; 
+  	width: 700px;
+  	top: 1.2em;
+}
+#weChat{
+
+	background-image: url("1.jpg");
+}
+</style>
+<!--    sidebar ends  -->
+<!--                                                     GRAPH start                      -->
+<script type="text/javascript">
+  window.onload = function () {
+
+var chart = new CanvasJS.Chart("chartContainer", {
+	animationEnabled: true,
+	theme: "light2",
+	title:{
+		text: "Simple Line Chart"
+	},
+	axisY:{
+		includeZero: false
+	},
+	data: [{        
+		type: "line",       
+		dataPoints: [
+			{ y: 450 },
+			{ y: 414 },
+			{ y: 520 },
+			{ y: 460 },
+			{ y: 450 },
+			{ y: 500 },
+			{ y: 480 },
+			{ y: 480 },
+			{ y: 410 },
+			{ y: 500 },
+			{ y: 480 },
+			{ y: 510 }
+		]
+	}]
+});
+chart.render();
+
+}
+</script>
+
+<script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<!--                                                              Graph end                         -->
+
+
+
+</head>
+
+<body><!--                                  MAJOR                  --><!--                             FIT                      -->
+	<div id="open">&nbsp;&nbsp;&nbsp;</div>
+	<table width="100%" height="650px" cellspacing="10" bgcolor="#eee" id="t1">
+		<tr><td width="20%" height="100%">
+
+		<div class="sidebar1">
+                <div class="logo">
+                    <h3>&nbsp;&nbsp;&nbsp;GROUP 7</h3>
+                </div>
+                <br>
+                <div class="left-navigation">
+                    <ul class="list">
+                        
+                        <li><a href="1.html"><i class="fa fa-home" style="font-size:22px"></i>&nbsp;&nbsp;Home</a></li>
+                        <li><a href="table.html"><i class="fa fa-folder" style="font-size:22px"></i>&nbsp;&nbsp;Database</a></li>
+                        
+                        <li><a href="fin.html"><i class="fa fa-bell" style="font-size:22px"></i>&nbsp;&nbsp;Notifications</a></li>
+                        <li><a href="fin.html"><i class="fa fa-cogs" style="font-size:22px"></i>&nbsp;&nbsp;Settimgs</a></li>
+                        
+                    </ul>
+
+                    <br>
+                </div>
+            </div>
+
+		</td>
+			<td width="25%" height="650px" bgcolor="white">
+				<table width="100%" height="100%" cellspacing="10"  bgcolor="#eee" bgcolor="white">
+					<tr bgcolor="white">
+						<td width="100%">
+							<table  width="100%" height="100%" bgcolor="white">
+								<tr>
+									<td width="60%" height="100%"><p class="setTitle">Soil Moisture<br><b><span style="font-size:35px; color:black">{{latest_plant_soilMoisture}}</span></b></p></td>
+									<td width="40%" height="100%">
+										<div class="box-piesite">
+											<ul>
+												<li class="design">
+													<div class="piesite" id="pie_0" data-pie=$p1>
+													</div>
+												</li>
+											</ul>
+										</div>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+
+					<tr bgcolor="white">
+						<td width="100%" >
+							<table  width="100%" height="100%" bgcolor="white">
+								<tr>
+									<td width="60%" height="100%"><p class="setTitle">Soil pH<br><b><span style="font-size:35px; color:black">{{latest_plant_pH}}</span></b></p></td>
+									<td width="40%" height="100%">
+										<div class="box-piesite">
+											<ul>
+												<li class="creativity">
+						        					<div class="piesite" id="pie_1" data-pie="2.00" >
+													</div>
+												</li>
+											</ul>
+										</div>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr bgcolor="white">
+						<td width="100%" >
+							<table  width="100%" height="100%" bgcolor="white">
+								<tr>
+									<td width="60%" height="100%"><p class="setTitle">Tank Water Level<br><b><span style="font-size:35px; color:black">{{latest_tank_water_level}}</span></b></p></td>
+									<td width="40%" height="100%">
+										<div class="box-piesite">
+											<ul>
+												<li class="usability">
+									        		<div class="piesite" id="pie_2" data-pie="5.00">
+													</div>
+												</li>
+											</ul>
+										</div>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr bgcolor="white" >
+						<td width="100%" id="a">
+							
+										<div id="weatherData"> 
+	    									<h3 id="location"></h3>  
+	   										
+	    									<h3 id="temp"></h3><br>
+	    									<div class="detailing">
+		     									
+		     									<div id="condition"></div>
+		     									<div id="humidity"></div>
+	     										<div id="wind"></div>
+	    									</div>  
+  										</div>
+  									
+  							
+						</td>
+					</tr>
+				</table>
+			</td>
+			<td width="55%" >
+				<table width="100%" height="100%" >
+					<tr>
+						<td>
+							<div id="chartContainer" width="620px" class="graph1"></div>
+						</td>
+					</tr>
+					<tr>
+						<td >
+							<div id="map"></div>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</table>
+
+<!-- weather widget start -->
+<!--a target="_blank" href="http://www.booked.net/weather/vellore-34712"><img src="https://w.bookcdn.com/weather/picture/32_34712_1_1_95a5a6_250_7f8c8d_ffffff_ffffff_1_2071c9_ffffff_0_6.png?scode=124&domid=w209&anc_id=91615"  alt="booked.net"/></a>
+<!-- weather widget end -->
+
+
+</body>
+<!-- WEATHER -->
+
+<!--   WEATHER  -->
+
+<!--MAP-->
+<script>
+      function initMap() {
+        var uluru = {lat: 13.7021, lng: 80.0181};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 4,
+          center: uluru
+        });
+        var marker = new google.maps.Marker({
+          position: uluru,
+          map: map
+        });
+      }
+</script>
+<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key= AIzaSyDOU4IjAId0ZLzZnTIBTxV8pFUsxVoBSeI&callback=initMap">
+</script>
+<!--pie-->
+</script>
+<script src="//maps.googleapis.com/maps/api/js?key=AIzaSyB16sGmIekuGIvYOfNoW9T44377IU2d2Es&sensor=true"></script>
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+
+
+<script>
+	document.body.innerHTML = document.body.innerHTML.replace('hello', 'hi');
+	var d=7;
+	var pie_0=d;
+	var pie_1=8;
+	var pie_2=9;
+	
+
+</script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js'></script>
+<script src="{% static 'wms/dashboard/pie.js'%}"></script> 
+<script  src="{% static 'wms/dashboard/weather.js'%}"></script>
+</html>

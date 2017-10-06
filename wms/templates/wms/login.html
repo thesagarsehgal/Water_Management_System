@@ -1,0 +1,98 @@
+<!-- 
+<h3>Log In</h3>
+{% if error_message %}
+<p><strong>{{ error_message }}</strong></p>
+{% endif %}
+<form class="form-horizontal" role="form" action="{% url 'wms:login_user'%}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+        Username:
+        <input id="id_username" maxlength="30" name="username" type="text">
+        Password:
+    	<input id="id_password" maxlength="30" name="password" type="password">
+        <button type="submit">Submit</button>
+</form>
+ -->
+
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>Sign up and login form</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,100' rel='stylesheet' type='text/css'>
+  {%load static%}
+  <link rel="stylesheet" href="{% static 'wms/login/style.css'%}">
+
+  
+</head>
+
+
+  <body>
+    <div class="banner jarallax">
+    <div class="agileinfo-dot">
+
+  <div class="container ">
+    <div class="backbox">
+      <div class="loginMsg">
+        <div class="textcontent">
+          <p class="title">Don't have an <span class="blu">account?</span></p>
+          <p><span class="blu">Sign up</span> to save all your graph.</p>
+          <button id="switch1">Sign Up</button>
+        </div>
+      </div>
+      <div class="signupMsg visibility">
+        <div class="textcontent">
+          <p class="title">Have an <span class="blu">account?</span></p>
+          <p><span class="blu">Log in</span> to see all your collection.</p>
+          <button id="switch2">LOG IN</button>
+        </div>
+      </div>
+    </div>
+    <!-- backbox -->
+
+    <div class="frontbox">
+      <div class="login">
+        <h2>LOG <span class="blu">IN</span></h2>
+        {% if error_message %}
+			 <p><strong>{{ error_message }}</strong></p>
+		    {% endif %}
+        <div class="inputbox">
+        <form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
+    	 {% csrf_token %}
+	        
+	          <input type="text" name="username" placeholder="  USERNAME" id="sloginUsername">
+	          <!-- <input type="text" name="email" placeholder="  EMAIL" id="sloginEmail"> -->
+	          <input type="password" name="password" placeholder="  PASSWORD" id="loginPassword">
+	       
+          <p><span class="blu">FORGET PASSWORD?</span></p>     add any question 
+          <button id="loginButton" type="submit">LOG IN</button>
+       	</form>
+        <!-- <main>{%block content%}{%endblock%}</main> -->
+        </div>
+      </div>
+
+      <div class="signup hide">
+        <h2>SIGN <span class="blu">UP</span></h2>
+        {%if error_message%}
+			   <p><strong>{{ error_message }}</strong></p>
+        {%endif%}
+        <form class="form-horizontal" role="form" action="{%url 'wms:register'%}" method="post" enctype="multipart/form-data">
+    	{% csrf_token %}
+        <div class="inputbox">
+          <input type="text" name="fullname" placeholder="  FULLNAME" id="signupName">
+          <input type="text" name="email" placeholder="  EMAIL" id="signupEmail">
+          <input type="password" name="password" placeholder="  PASSWORD" id="signupPassword">
+        </div>
+        <button id="signupButton">SIGN UP</button>
+    	</form>
+      </div>
+
+    </div>
+    <!-- frontbox -->
+  </div>
+  </div>
+  </div>
+  </body>
+  <script  src="{% static 'wms/login/index.js'%}"></script>
+</html>

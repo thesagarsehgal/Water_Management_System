@@ -1,0 +1,48 @@
+
+#location {
+  
+  margin-left: 0px;
+  font-size:27px;
+  color: grey;
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  padding: 2px;
+  z-index: 1;
+}
+
+#weatherData {
+  margin: 20px auto auto auto;
+  width: 320px;
+  margin-bottom: 30px;
+  z-index: 1;
+  padding-left: 20px;
+  padding-bottom: 100px;
+}
+
+#temp {
+  float: left;
+  color: black;
+  font-size:30px;
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+}
+
+#icon {
+  float: left;
+  width: 100%;
+  height: 100%;
+  opacity: 0.5;
+  margin-left: 10px;
+  margin-right: 5px;
+}
+
+.detailing {
+  text-transform: capitalize;
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  font-size:25px;
+  position: relative;
+  display: block;
+  padding-bottom: 80px;
+  padding-right: 10px;
+  float: right;
+  margin: 10px auto auto auto;
+}
+

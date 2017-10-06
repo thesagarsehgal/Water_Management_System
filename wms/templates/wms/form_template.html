@@ -1,0 +1,9 @@
+{%extends 'wms/login.html'%}
+
+{%block content%}
+	{%for field in form%}
+		<b>{{field.errors}}</b>
+		<label>{{field.label_tag}}</label>
+		{{field}}
+	{%endfor%}
+{%endblock%}
