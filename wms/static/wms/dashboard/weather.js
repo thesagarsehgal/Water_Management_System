@@ -21,6 +21,6 @@ function getWeather(city) {
   $("#condition").html(condition);
   $("#humidity").html('Humidity: '+humidity+'%');
   $("#wind").html('wind speed: '+wind+'m/s');
-  setBackground();
+  // setBackground();
   });
 }

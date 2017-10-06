@@ -1,0 +1,281 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Plant {{plant.id}} Database</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+   <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+<style>
+body{
+  background-color: white;
+}
+dummydeclaration { padding-left: 4em; }
+tab2 { padding-left: 8em; }
+input{
+  background: white;
+ 
+  background-repeat: no-repeat;
+  width: 700px;
+  height: 50px;
+  font-size: 20px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid black;
+  margin-bottom: 12px;
+}
+input[type='text']:hover{
+  background: black;
+  color: white;
+
+
+}
+.sidebar1 {
+   
+    /* For Firefox 3.6 to 15 */
+    background: white;
+    /* Standard syntax */
+    padding: 0px;
+    min-height: 100vh;
+    border-right: 10px solid #eee; 
+}
+#tab {
+
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 700px;
+    
+    border: 1px solid #ddd;
+    
+}
+th, td {
+    border: none;
+    text-align: left;
+    height: 20px;
+    padding: 8px;
+}
+tr:nth-child(even){background-color: #f2f2f2}
+
+/*<!--    sidebar starts  -->*/
+
+#a{
+  background-repeat: no-repeat;
+}
+
+#open{
+  width:100%;
+  background-color: #314d68;
+  height:70px;
+}
+#t1{
+  position: absolute;
+    top: 70px;
+    background-color: white;
+    border-top: 0px;
+    padding-top: 0px;
+
+}
+#h3{
+  color:grey;
+
+}
+.sidebar1 {
+   
+    /* For Firefox 3.6 to 15 */
+    background: white;
+    /* Standard syntax */
+    padding: 0px;
+    min-height: 100vh;
+}
+
+.logo {
+    margin-top:0.33em;
+    background: #EE3B3B;
+    width:18.58%;
+    color: white;
+    padding: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    border: 0px solid white;
+    font-size: 30px;
+    border-radius: 0%;
+    position: absolute; 
+    top: 0em;
+    left: 00px;
+}
+.list{
+  position: absolute;
+  top: 5em;
+    color: #fff;
+    left:0px;
+    list-style: none;
+    padding-left: 0px;
+  display: inline-block;
+    font-size: 22px;
+    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+}
+.list> a {
+  display: block;
+}
+
+a{
+  text-decoration: none;
+  color: #332f2e;
+}
+a:hover, a:active {
+    text-decoration: none;
+    color: grey;
+}
+.list::first-line {
+    color: rgba(255, 255, 255, 0.5);
+}
+.list> li, h5 {
+  color: grey;
+    padding: 5px 0px 5px 40px;
+}
+.list>li:hover {
+    background-color: rgb(192,192,192,0.2);
+    border-left: 4px solid grey;
+    color: black;
+    font-weight: bolder;
+    padding-left: 5px;
+}
+
+
+.setTitle{
+  position: relative; 
+    left: 0.5em;
+    font-size: 25px;
+    color: grey;
+    font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+}
+
+                                                     /*   @@@@@@@@@@@@@@@@@@@@@@      copy    @@@@@@@@@@@@@@@@@@@@@@@@       */                                                                        
+.w3-ul{                                                       
+  position:relative;
+  float: right;
+  right: 2em;
+  top: 1em;
+  color: white;
+  text-decoration: none;
+}
+.aadmi{
+  color: white;
+}
+.aadmi:hover {
+  color: orange;
+  -webkit-transform: scale(1.3);
+  -moz-transform: scale(1.3);
+  -ms-transform: scale(1.3);
+  -o-transform: scale(1.3);
+  transform: scale(1.3);
+  -webkit-transition: all 1s ease;
+  -moz-transition: all 1s ease;
+  -ms-transition: all 1s ease;
+  -o-transition: all 1s ease;
+  transition: all 1s ease;
+}                                                    /*   @@@@@@@@@@@@@@@@@@@@@@      copy    @@@@@@@@@@@@@@@@@@@@@@@@       */
+ .cos{
+  border-right: 10px solid #eee;
+  min-height: 100vh;
+
+ }       
+
+</style>           
+
+
+<script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+</head><!--                                  MAJOR                  --><!--                             FIT                      -->
+<body > <!--                                  MAJOR                  --><!--                             FIT                      -->
+  <div id="open">
+  <ul class="w3-ul">                                                                                              <!--     copy     -->
+    <a href="{%url 'wms:index' %}"><i class="fa fa-user aadmi" style="font-size:36px"></i></a>
+  </ul>                                                                                                              <!--     copy     -->               
+</div>
+  <table width="100%" height="600px" cellspacing="10" id="t1">
+    <tr><td width="20%" height="100%" class="CoS">
+
+    <div class="sidebar1">
+                <div class="logo">
+                    <h3>&nbsp;&nbsp;&nbsp;Plant {{plant.id}}</h3>
+                </div>
+                <br>
+                <div class="left-navigation">
+                    <ul class="list">
+                        
+                        <li><a href="{%url 'wms:plant_details' plant.id%}"><i class="fa fa-home" style="font-size:22px"></i>&nbsp;&nbsp;Home</a></li>
+                        <li><a href="{%url 'wms:plant_database' plant.id%}"><i class="fa fa-folder" style="font-size:22px"></i>&nbsp;&nbsp;Database</a></li>
+                        
+                        <li><a href="{%url 'wms:construction'%}"><i class="fa fa-bell" style="font-size:22px"></i>&nbsp;&nbsp;Notifications</a></li>
+                        <li><a href="{%url 'wms:construction'%}"><i class="fa fa-cogs" style="font-size:22px"></i>&nbsp;&nbsp;Settings</a></li>
+                        
+                    </ul>
+
+                    <br>
+                </div>
+            </div>
+
+    </td>
+    <td width="80%" height="600px" bgcolor="white">
+    <h2><center>Server Database</center></h2>
+     <tab2>&emsp;&emsp;&emsp;<input type="text" class="id1" id="myInput" onkeyup="myFunction()" placeholder="Search for Data id.." title="Type in a name">
+    <div height="500px" width="100%">
+    <div style="overflow-y:scroll; height:500px; width: 100%; align:center">
+
+     <table align="center" id="tab">
+
+        <tr class="header">
+          <th >Data Id</th>
+          <th >Tank Water Level</th>
+          <th >Soil Moisture</th>
+          <th >Soil pH</th>
+          <th >Temperature</th>
+          <th >Rainfall Chances</th>
+        </tr>
+        {%for i,j in zipped%}
+          <tr>
+            <td >{{i.id}}</td>
+            <td >{{j.tankWaterLevel}}</td>
+            <td >{{i.soilMoisture}}</td>
+            <td >{{i.pH}}</td>
+            <td >30</td>
+            <td >False</td>
+          </tr>
+        {%endfor%}
+      </table>
+    </div>
+    </div>
+
+  </td>
+</tr>
+</table>
+</body>
+<!--                                        Search                        -->
+<script>
+function myFunction() {
+  var input, filter, table, tr, td, i;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("tab");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+</script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js'></script>
+</html>

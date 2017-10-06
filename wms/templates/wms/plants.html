@@ -15,16 +15,16 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 <!-- bootstrap-css -->
-{%load static %}
-<link href="{% static 'wms/home/css/bootstrap.css'%}" rel="stylesheet" type="text/css" media="all" />
+{%load static%}
+<link href="{%static 'wms/home/css/bootstrap.css'%}" rel="stylesheet" type="text/css" media="all" />
 <!--// bootstrap-css -->
 <!-- css -->
-
-<link rel="stylesheet" href="{% static 'wms/home/css/style.css'%}" type="text/css" media="all" />
+<link rel="stylesheet" href="{%static 'wms/home/css/style.css'%}" type="text/css" media="all" />
 <!--// css -->
 <!-- font-awesome icons -->
 
 <!-- //font-awesome icons -->
+<link rel="stylesheet" href="{%static 'wms/home/cssSlide/thumb.css'%}">      <!--      copy     -->
 <!-- font -->
 <link href="//fonts.googleapis.com/css?family=Josefin+Sans:100,100i,300,300i,400,400i,600,600i,700,700i" rel="stylesheet">
 <link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,700italic,700,400italic,300italic,300' rel='stylesheet' type='text/css'>
@@ -42,7 +42,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="container">
 					<div class="header-top-grids">
 						<div class="agileits-logo">
-							<h1><a href="{%url 'wms:index'%}">Group 7</a></h1>
+							<h1><a href="index.html">Group 7</a></h1>
 						</div>
 						<div class="top-nav">
 							<nav class="navbar navbar-default">
@@ -59,15 +59,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<div class="collapse navbar-collapse nav-wil" id="bs-example-navbar-collapse-1">
 									<nav>
 										<ul class="nav navbar-nav">
-											<li><a href="{%url 'wms:index' %}">Home</a></li>
-											<li  class="active">
+											
+											<li ><a href="{%url 'wms:index' %}">Home</a></li>
+											<li>
 												<a href="{%url 'wms:about'%}">About</a>
 											</li>
-												<li><a href="{%url 'wms:plants'%}">Plants</a></li>
+												<li class="active"><a href="{%url 'wms:plants'%}">Plants</a></li>
 												
 												<li><a href="#">Profile</a></li>
 												
-											
 										</ul>
 									</nav>
 								</div>
@@ -84,31 +84,36 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<!-- about-top -->
 	<div class="agile-about-top">
 		<div class="container">
-		<h3 class="agileinfo_header">About <span>Us</span></h3>
+		<h3 class="agileinfo_header">Plants <!-- <span>Us</span> --></h3>
 			
-			<div class="about-section">
-				<div class="col-md-7 ab-left">
-				  <div class="grid">
-			        <div class="h-f">
-					<img src="{% static 'wms/home/images/gg5.jpg'%}" class="img-responsive" alt=" " />
-				 </div>
-				 <div class="h-f">
-					<img src="{% static 'wms/home/images/twh.jpg'%}" class="img-responsive" alt=" " />
-				 </div>
-				 <div class="clearfix"> </div>
-				 </div>
-			   </div>
-			   <div class="col-md-5 ab-text">
-					<p>Deepak Kumar &emsp;201601022<br>
-						MoJo &emsp;201601053<br>
-						Pradeep Turan &emsp;201601064<br>
-						Rahul Kumar &emsp;201601069<br>
-						Sagar &emsp;201601075<br>
-						Sarin Nikose &emsp;201601083<br>
-					</p>
-				</div>
-				<div class="clearfix"> </div>
-			 </div>
+			<div style="padding-top: 40px;">                      <!-- copy   -->
+        <div id="thumbnail-slider">
+            <div class="inner">
+                <ul>
+                    <li>
+                        <a class="thumb" href="{%static 'wms/home/images2/2.jpg'%}"  onclick="document.location='index.html';return false;">
+                        </a>
+                    </li>
+                    <li>
+                        <a class="thumb" href="{%static 'wms/home/images2/1.jpg'%}" onclick="document.location='index.html';return false;">
+                        </a>
+                    </li>
+                    <li>
+                        <a class="thumb" href="{%static 'wms/home/images2/11.jpg'%}" onclick="document.location='index.html';return false;">
+                        </a>
+                    </li>
+                    <li>
+                        <a class="thumb" href="{%static 'wms/home/images2/tank.jpg'%}" onclick="document.location='index.html';return false;">
+                        </a>
+                    </li>
+                    <li>
+                        <a class="thumb" href="{%static 'wms/home/images2/t1.jpg'%}" onclick="document.location='index.html';return false;">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>                                                        <!-- copy -->
 		</div>
 	</div>
 	<!-- //about-top -->
@@ -122,13 +127,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 <!-- //footer -->
 	<!-- jarallax -->
-	<script src="{% static 'wms/home/js/SmoothScroll.min.js' %}"></script>
+	<script src="{% static 'wms/home/js/SmoothScroll.min.js'%}"></script>
+	<script  src="{% static 'wms/home/jsSlide/thumb.js' %}"></script>          <!--    copy    -->
 	<script type="text/javascript">
+
 		/* init Jarallax */
 		$('.jarallax').jarallax({
 			speed: 0.5,
 			imgWidth: 1366,
-			imgHeight: 768,
+			imgHeight: 768
 		})
 	</script>
 	<!-- //jarallax -->

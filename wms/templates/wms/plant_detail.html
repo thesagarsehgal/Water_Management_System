@@ -1,6 +1,7 @@
 <html>
 <head>
 	<!--   icon   -->
+	<title>Plant {{plant.id}}</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <!-- pie start-->
@@ -8,18 +9,20 @@
 <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 {%load static%}
 <link rel="stylesheet" href="{% static 'wms/dashboard/pie.css'%}">
-<!-- pie end -->
+
+<!-- pie end-->
 <link rel="stylesheet" href="{% static 'wms/dashboard/weather.css'%}">
-<!--    sidebar starts -->
+<!--    sidebar starts  -->
 
 <style>
+
 #a{
 	background-repeat: no-repeat;
 }
 
 #open{
 	width:100%;
-	background: linear-gradient(#42647F,#3B6AA0) ;
+	background: #314D68 ;
 	height:70px;
 }
 #t1{
@@ -119,41 +122,39 @@ a:hover, a:active {
 
 	background-image: url("1.jpg");
 }
-</style>
+
+                                                     /*   @@@@@@@@@@@@@@@@@@@@@@      copy    @@@@@@@@@@@@@@@@@@@@@@@@       */                                                                        
+.w3-ul{                                                       
+	position:relative;
+	float: right;
+	right: 2em;
+	top: 1em;
+	color: white;
+	text-decoration: none;
+}
+.aadmi{
+	color: white;
+}
+.aadmi:hover {
+  color: orange;
+  -webkit-transform: scale(1.3);
+  -moz-transform: scale(1.3);
+  -ms-transform: scale(1.3);
+  -o-transform: scale(1.3);
+  transform: scale(1.3);
+  -webkit-transition: all 1s ease;
+  -moz-transition: all 1s ease;
+  -ms-transition: all 1s ease;
+  -o-transition: all 1s ease;
+  transition: all 1s ease;
+}                                                    /*   @@@@@@@@@@@@@@@@@@@@@@      copy    @@@@@@@@@@@@@@@@@@@@@@@@       */
+                                                                                      
+</style>                                                                           
 <!--    sidebar ends  -->
 <!--                                                     GRAPH start                      -->
 <script type="text/javascript">
-  window.onload = function () {
-
-var chart = new CanvasJS.Chart("chartContainer", {
-	animationEnabled: true,
-	theme: "light2",
-	title:{
-		text: "Simple Line Chart"
-	},
-	axisY:{
-		includeZero: false
-	},
-	data: [{        
-		type: "line",       
-		dataPoints: [
-			{ y: 450 },
-			{ y: 414 },
-			{ y: 520 },
-			{ y: 460 },
-			{ y: 450 },
-			{ y: 500 },
-			{ y: 480 },
-			{ y: 480 },
-			{ y: 410 },
-			{ y: 500 },
-			{ y: 480 },
-			{ y: 510 }
-		]
-	}]
-});
-chart.render();
-
+  window.onload = function (gr) {
+  	graphKa("Soil Moisture",gr1);
 }
 </script>
 
@@ -164,24 +165,27 @@ chart.render();
 
 </head>
 
-<body><!--                                  MAJOR                  --><!--                             FIT                      -->
-	<div id="open">&nbsp;&nbsp;&nbsp;</div>
+<body> <!--                                  MAJOR                  --><!--                             FIT                      -->
+	<div id="open">&nbsp;&nbsp;&nbsp;
+	<ul class="w3-ul">                                                                                              <!--     copy     -->
+    <li class="w3-xxxlarge"><a href="{%url 'wms:index'%}"><i class="fa fa-user aadmi" style="font-size:36px"></i></a></li>
+  </ul>                                                                                                              <!--     copy     -->               
+</div>
 	<table width="100%" height="650px" cellspacing="10" bgcolor="#eee" id="t1">
 		<tr><td width="20%" height="100%">
 
 		<div class="sidebar1">
                 <div class="logo">
-                    <h3>&nbsp;&nbsp;&nbsp;GROUP 7</h3>
+                    <h3>&nbsp;&nbsp;&nbsp;Plant {{plant.id}}</h3>
                 </div>
                 <br>
                 <div class="left-navigation">
                     <ul class="list">
                         
-                        <li><a href="1.html"><i class="fa fa-home" style="font-size:22px"></i>&nbsp;&nbsp;Home</a></li>
-                        <li><a href="table.html"><i class="fa fa-folder" style="font-size:22px"></i>&nbsp;&nbsp;Database</a></li>
-                        
-                        <li><a href="fin.html"><i class="fa fa-bell" style="font-size:22px"></i>&nbsp;&nbsp;Notifications</a></li>
-                        <li><a href="fin.html"><i class="fa fa-cogs" style="font-size:22px"></i>&nbsp;&nbsp;Settimgs</a></li>
+                        <li><a href="{%url 'wms:plant_details' plant.id%}"><i class="fa fa-home" style="font-size:22px"></i>&nbsp;&nbsp;Home</a></li>
+                        <li><a href="{%url 'wms:plant_database' plant.id%}"><i class="fa fa-folder" style="font-size:22px"></i>&nbsp;&nbsp;Database</a></li>
+                        <li><a href="c"><i class="fa fa-bell" style="font-size:22px"></i>&nbsp;&nbsp;Notifications</a></li>
+                        <li><a href="{%url 'wms:construction'%}"><i class="fa fa-cogs" style="font-size:22px"></i>&nbsp;&nbsp;Settings</a></li>
                         
                     </ul>
 
@@ -193,7 +197,7 @@ chart.render();
 			<td width="25%" height="650px" bgcolor="white">
 				<table width="100%" height="100%" cellspacing="10"  bgcolor="#eee" bgcolor="white">
 					<tr bgcolor="white">
-						<td width="100%">
+						<td width="100%" onclick="graphKa('Soil Moisture',gr1)">
 							<table  width="100%" height="100%" bgcolor="white">
 								<tr>
 									<td width="60%" height="100%"><p class="setTitle">Soil Moisture<br><b><span style="font-size:35px; color:black">{{latest_plant_soilMoisture}}</span></b></p></td>
@@ -201,7 +205,7 @@ chart.render();
 										<div class="box-piesite">
 											<ul>
 												<li class="design">
-													<div class="piesite" id="pie_0" data-pie=$p1>
+													<div class="piesite" id="pie_0" data-pie=$p1 onclick="graphKa('Soil Moisture')">
 													</div>
 												</li>
 											</ul>
@@ -213,7 +217,7 @@ chart.render();
 					</tr>
 
 					<tr bgcolor="white">
-						<td width="100%" >
+						<td width="100%" onclick="graphKa('Humidity',gr2)">
 							<table  width="100%" height="100%" bgcolor="white">
 								<tr>
 									<td width="60%" height="100%"><p class="setTitle">Soil pH<br><b><span style="font-size:35px; color:black">{{latest_plant_pH}}</span></b></p></td>
@@ -221,7 +225,7 @@ chart.render();
 										<div class="box-piesite">
 											<ul>
 												<li class="creativity">
-						        					<div class="piesite" id="pie_1" data-pie="2.00" >
+						        					<div class="piesite" id="pie_1" data-pie="2.00" onclick="graphKa('Soil pH')">
 													</div>
 												</li>
 											</ul>
@@ -232,15 +236,18 @@ chart.render();
 						</td>
 					</tr>
 					<tr bgcolor="white">
-						<td width="100%" >
+						<script>
+
+						</script>
+						<td width="100%" onclick="graphKa('Water Level',gr3)">
 							<table  width="100%" height="100%" bgcolor="white">
 								<tr>
-									<td width="60%" height="100%"><p class="setTitle">Tank Water Level<br><b><span style="font-size:35px; color:black">{{latest_tank_water_level}}</span></b></p></td>
+									<td width="60%" height="100%"><p class="setTitle">Water Level<br><b><span style="font-size:35px; color:black">{{latest_tank_water_level}}</span></b></p></td>
 									<td width="40%" height="100%">
 										<div class="box-piesite">
 											<ul>
 												<li class="usability">
-									        		<div class="piesite" id="pie_2" data-pie="5.00">
+									        		<div class="piesite" id="pie_2" data-pie="5.00" onclick="graphKa('Water Level')">
 													</div>
 												</li>
 											</ul>
@@ -270,11 +277,11 @@ chart.render();
 					</tr>
 				</table>
 			</td>
-			<td width="55%" >
+			<td width="55%" height="650px" >
 				<table width="100%" height="100%" >
 					<tr>
 						<td>
-							<div id="chartContainer" width="620px" class="graph1"></div>
+							<div id="chartContainer" width="600px" class="graph1"></div>
 						</td>
 					</tr>
 					<tr>
@@ -287,9 +294,7 @@ chart.render();
 		</tr>
 	</table>
 
-<!-- weather widget start -->
-<!--a target="_blank" href="http://www.booked.net/weather/vellore-34712"><img src="https://w.bookcdn.com/weather/picture/32_34712_1_1_95a5a6_250_7f8c8d_ffffff_ffffff_1_2071c9_ffffff_0_6.png?scode=124&domid=w209&anc_id=91615"  alt="booked.net"/></a>
-<!-- weather widget end -->
+<!-- weather widget start --><!--a target="_blank" href="http://www.booked.net/weather/vellore-34712"><img src="https://w.bookcdn.com/weather/picture/32_34712_1_1_95a5a6_250_7f8c8d_ffffff_ffffff_1_2071c9_ffffff_0_6.png?scode=124&domid=w209&anc_id=91615"  alt="booked.net"/></a><!-- weather widget end -->
 
 
 </body>
@@ -318,19 +323,63 @@ chart.render();
 </script>
 <script src="//maps.googleapis.com/maps/api/js?key=AIzaSyB16sGmIekuGIvYOfNoW9T44377IU2d2Es&sensor=true"></script>
 <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="{% static 'wms/dashboard/pie.js'%}"></script> 
 
+<script>
+	function graphKa(paraSF,gr) {
+			var chart = new CanvasJS.Chart("chartContainer", {
+			animationEnabled: true,
+			theme: "light2",
+			title:{
+				text: paraSF
+			},
+			axisY:{
+				includeZero: false
+			},
+			data: [{        
+				type: "line",       
+				dataPoints: [
+					{ y: gr[0] },
+					{ y: gr[1] },
+					{ y: gr[2] },
+					{ y: gr[3] },
+					{ y: gr[4] },
+					{ y: gr[5] },
+					{ y: gr[6] },
+					{ y: gr[7] },
+					{ y: gr[8] },
+					{ y: gr[9] },
+					{ y: gr[10] },
+					{ y: gr[11] }
+				]
+			}]
+			});
+			chart.render();				
+		}
+		
+</script>
 
 <script>
 	document.body.innerHTML = document.body.innerHTML.replace('hello', 'hi');
-	var d=7;
-	var pie_0=d;
-	var pie_1=8;
-	var pie_2=9;
+	var pie_0={{percent_plant_soilMoisture}};
+	// console.log(pie_0);
+	var pie_1={{percent_plant_pH}};
+	var pie_2={{percent_tank_water_level}};
+	var gr1=[],gr2=[];
+
+	{%for i in plant_data10%}
+		gr1.push({{i.soilMoisture}});
+		gr2.push({{i.pH}})
+	{%endfor%}
+	var gr3=[];
+	{%for i in tank_data10%}
+		gr3.push({{i.tankWaterLevel}})
+	{%endfor%}
 	
 
 </script>
   <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js'></script>
-<script src="{% static 'wms/dashboard/pie.js'%}"></script> 
-<script  src="{% static 'wms/dashboard/weather.js'%}"></script>
+
+    <script  src="{% static 'wms/dashboard/weather.js'%}"></script>
 </html>

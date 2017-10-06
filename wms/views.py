@@ -30,32 +30,57 @@ def plant_details(request,plant_id):
     plant=get_object_or_404(Plant,id=plant_id)
     # getting the latest value of tank water level
     c=plant.tank.tank_data_set.count()
-    latest_tank_water_level=plant.tank.tank_data_set.all()[c-1].tankWaterLevel
     tank_data=plant.tank.tank_data_set.all()
-    tank_data10=tank_data[len(tank_data)-5:]
+    tank_data10=tank_data.order_by('-id')[:12][::-1]
 
     plant_data=plant.plant_data_set.all()
     (plant.averagepH,plant.averageSoilMoisture)=calc_average(plant_data)
     plant.save()
     latest_plant=plant_data[len(plant_data)-1]
+
     latest_plant_pH=latest_plant.pH
+    percent_plant_pH=latest_plant_pH/1.4
     latest_plant_soilMoisture=latest_plant.soilMoisture
-    plant_data10=plant_data[len(plant_data)-5:]
+    percent_plant_soilMoisture=latest_plant.soilMoisture/100
+    latest_tank_water_level=plant.tank.tank_data_set.all()[c-1].tankWaterLevel
+    percent_tank_water_level=latest_tank_water_level/10
+
+    plant_data10=plant_data.order_by('-id')[:12][::-1]
 
     context={
     'plant':plant,#plant
     'latest_tank_water_level':latest_tank_water_level,#last tank water level reported for the tank
-    'tank_data10':tank_data,#list of all the database
+    'percent_tank_water_level':percent_tank_water_level,
+    'tank_data10':tank_data10,#list of all the database
     'plant_data10':plant_data,
+    
     'latest_plant_soilMoisture':latest_plant_soilMoisture,
-    'latest_plant_pH':latest_plant_soilMoisture,
+    'latest_plant_pH':latest_plant_pH,
+    'percent_plant_soilMoisture':percent_plant_soilMoisture,
+    'percent_plant_pH':percent_plant_pH,
     }
     return render(request,'wms/plant_detail.html',context)
+
+def plant_database(request,plant_id):
+    plant=get_object_or_404(Plant,id=plant_id)
+    plant_data=plant.plant_data_set.all().order_by('-id')
+    tank_data=plant.tank.tank_data_set.all().order_by('-id')
+    zipped=zip(plant_data,tank_data)
+    context={ 
+    'plant':plant,
+    'zipped':zipped,
+    }
+    return render(request,'wms/plant_detail_database.html',context)
 
 def tank_details(request,tank_id):
 	tank=get_object_or_404(Tank,id=tank_id)
 	return render(request,'wms/tank_detail.html',{'tank':tank}) 
 
+def construction(request):
+    return render(request,'wms/coming_soon.html')
+
+def plants(request):
+    return render(request,'wms/plants.html')
 # class UserFormView(View):
 # 	form_class=UserForm
 # 	template_name='wms/reg_form.html'

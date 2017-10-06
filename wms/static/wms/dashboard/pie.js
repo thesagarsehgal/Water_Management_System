@@ -28,7 +28,7 @@ function drawTimer(c, a) {
     '<span class="int">' +
       intPart +
       '</span><span class="dec">.' +
-      dec +
+      dec +'%'+
       "</span>"
   );
 }
