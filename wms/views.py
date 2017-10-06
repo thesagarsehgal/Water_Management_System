@@ -17,6 +17,17 @@ def index(request):
 def about(request):
 	return render(request,'wms/about.html',{})
 
+def get_data(request):
+    tank_water_level=request.GET['twl']
+    soil_moisture=request.GET['sm']
+    plant_id=request.GET['pid']
+    tank_id=request.GET['tid']
+    p=Plant.objects.get(id=plant_id)
+    t=Tank.objects.get(id=tank_id)
+    p.plant_data_set.create(soilMoisture=soil_moisture,pH=7)
+    t.tank_data_set.create(tankWaterLevel=tank_water_level)
+    return redirect('wms:plant_database',plant_id)
+
 def calc_average(plant_data):
     spH=ssM=0
     for i in plant_data:  
