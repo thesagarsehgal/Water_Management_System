@@ -17,7 +17,7 @@ function drawTimer(c, a) {
     "-o-transform": "rotate(" + b + "deg)",
     transform: "rotate(" + b + "deg)"
   });
-  a = Math.floor(a * 100) / 100;
+  a = Math.floor(a * 100) / 10;
   arr = a.toString().split(".");
   intPart = arr[0];
   dec = arr[1];

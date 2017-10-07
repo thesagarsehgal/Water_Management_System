@@ -11,4 +11,4 @@ class LoginForm(forms.ModelForm):
 	password=forms.CharField(widget=forms.PasswordInput)
 	class Meta:
 		model=User
-		fields=['username','password','email']
+		fields=['username','password']

@@ -72,10 +72,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											<li>
 												<a href="{%url 'wms:about'%}">About</a>
 											</li>
-												<li><a href="{%url 'wms:plants'%}">Plants</a></li>
-												
-												<li><a href="#">Profile</a></li>
-												
+												{%if user.is_authenticated%}
+											<li><a href="{%url 'wms:plants'%}">Plants</a></li>
+											{%endif%}
+												<!-- <li><a href="#">Profile</a></li> -->
+													<li>
+													{% if user.is_authenticated%}
+													<a href="{%url 'wms:logout_user'%}">Log out</a>
+													{%else%}
+													<a href="{%url 'wms:login_user'%}">Log in</a>
+													{%endif%}
+												</li>
+											
 											
 										</ul>
 									</nav>

@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate,login
 from django.views.generic import View
 from .forms import UserForm,LoginForm
 from django.contrib.auth import logout
-
+from django.contrib.auth.models import User
 def index(request):
 	all_plants=Plant.objects.all()
 	all_tanks=Tank.objects.all()
@@ -92,8 +92,9 @@ def construction(request):
 
 def plants(request):
     return render(request,'wms/plants.html')
+
 # class UserFormView(View):
-# 	form_class=UserForm
+# 	form_class=UserForm(request.POST or None)
 # 	template_name='wms/reg_form.html'
 # 	#displaying a blank form
 # 	def get(self,request):
@@ -120,62 +121,71 @@ def plants(request):
 # 		return render(request,self.template_name,{'form':form})
 
 
-# def logout_user(request):
-#     logout(request)
-#     form = UserForm(request.POST or None)
-#     context = {
-#         "form": form,
-#     }
-#     # return render(request, 'wms/login.html', context)
-#     return redirect('wms:index')
+def logout_user(request):
+    logout(request)
+    form = UserForm(request.POST or None)
+    context = {
+        "form": form,
+    }
+    # return render(request, 'wms/login.html', context)
+    return redirect('wms:index')
 
-# def login_user(request):
-#     form = LoginForm(request.POST or None)
-#     context={'form':form}
-#     if(request.method == "POST"):
+
+def login_user(request):
+    if request.method == "POST":
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                # albums = Album.objects.filter(user=request.user)
+                return render(request, 'wms/index.html')
+            else:
+                return render(request, 'wms/login_new.html', {'error_message': 'Your account has been disabled'})
+        if user is None:
+            return render(request, 'wms/login_new.html', {'error_message': 'Invalid login'})
+    return render(request, 'wms/login_new.html')
+
+# def login_prad(request):
+#     if request.method == "POST":
 #         username = request.POST['username']
 #         password = request.POST['password']
 #         user = authenticate(username=username, password=password)
-#         if(user is None):
-#             print("********************************")
-#             print(username)
-#             print(password)
 #         if user is not None:
 #             if user.is_active:
 #                 login(request, user)
-#                 # plants = Plant.objects.filter(user=request.user)
-#                 # tanks  = Tank.objects.filter(user=request.user)
-#                 # return render(request, 'wms/index.html',{'plants':plants,'tanks':tanks})
-#                 return redirect('wms:index')
+#                 # albums = Album.objects.filter(user=request.user)
+#                 return render(request, 'wms/index.html')
 #             else:
-#                 return render(request, 'wms/login.html', {'error_message': 'Your account has been disabled'})
-#         else:
-#             return render(request, 'wms/login.html', {'error_message': 'Invalid login'})
-#     return render(request, 'wms/login.html',context)
+#                 return render(request, 'wms/login_pradeep.html', {'error_message': 'Your account has been disabled'})
+#         if user is None:
+#             return render(request, 'wms/login_pradeep.html', {'error_message': 'Invalid login'})
+#     return render(request,'wms/login_pradeep.html',{})
 
-
-# def register(request):
-#     form = UserForm(request.POST or None)
-#     if form.is_valid():
-#         user = form.save(commit=False)
-#         username = form.cleaned_data['username']
-#         email=form.cleaned_data['email']
-#         password = form.cleaned_data['password']
-#         user.set_password(password)
-#         user.save()
-#         user = authenticate(username=username, password=password)
-#         if(user is None):
-#             print("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
-#             print(username)
-#             print(password)
-#             print(email)
-#         if user is not None:
-#             if user.is_active:
-#                 login(request, user)
-#                 plants = Plant.objects.filter(user=request.user)
-#                 tanks  = Tank.objects.filter(user=request.user)
-#                 return redirect('wms:index')
-#     context = {
-#         "form": form,
-#     }
-#     return render(request, 'wms/login.html', context)
+def register(request):
+    form = UserForm(request.POST or None)
+    if form.is_valid():
+        user = form.save(commit=False)
+        username = form.cleaned_data['username']
+        email=form.cleaned_data['email']
+        password = form.cleaned_data['password']
+        # user=User.objects.create_user(username=username,password=password,email=email)
+        user.set_password(password)
+        user.save()
+        user = authenticate(username=username, password=password)
+        if(user is None):
+            print("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
+            print(username)
+            print(password)
+            print(email)
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                # plants = Plant.objects.filter(user=request.user)
+                # tanks  = Tank.objects.filter(user=request.user)
+                return redirect('wms:index')
+    context = {
+        "form": form,
+    }
+    return render(request, 'wms/login_new.html', context)

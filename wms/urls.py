@@ -7,9 +7,10 @@ urlpatterns = [
     url(r'^$', views.index,name="index"),
 
     url(r'^getdata/$', views.get_data,name="getdata"),
-    # url(r'^register/$', views.register, name='register'),
-    # url(r'^login_user/$', views.login_user, name='login_user'),
-    # url(r'^logout_user/$', views.logout_user, name='logout_user'),
+    url(r'^register/$', views.register, name='register'),
+    url(r'^login_user/$', views.login_user, name='login_user'),
+    # url(r'^login_prad/$', views.login_prad, name='login_prad'),
+    url(r'^logout_user/$', views.logout_user, name='logout_user'),
     # /about/
     url(r'^about/$', views.about,name="about"),
     url(r'^plants/$', views.plants,name="plants"),

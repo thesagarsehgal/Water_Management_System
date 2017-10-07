@@ -1,8 +1,13 @@
 {%if error_message%}
 	<b>{{error_message}}</b>
 {%endif%}
-<form role="form" action="" method="post" enctype="multipart/form-data">
+<form role="form" action="{% url 'wms:register'%}" method="post" enctype="multipart/form-data">
 {%csrf_token%}
-{%include 'wms/form_template.html'%}
-<button type="submit">Submit</button>
+	Username:
+        <input id="id_username" maxlength="30" name="username" type="text">
+    Email:
+    	<input id="id_email" maxlength="30" name="email" type="email">
+    Password:
+    	<input id="id_password" maxlength="30" name="password" type="password">
+    <button type="submit">Submit</button>
 </form>
