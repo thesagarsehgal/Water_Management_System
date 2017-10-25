@@ -3,6 +3,7 @@
 <html>
 <head>
   <title>Plant {{plant.id}} Database</title>
+  <meta http-equiv="refresh" content="1">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
@@ -232,7 +233,6 @@ a:hover, a:active {
      <table align="center" id="tab">
 
         <tr class="header">
-          <th >Data Id</th>
           <th >Tank Water Level</th>
           <th >Soil Moisture</th>
           <th >Soil pH</th>
@@ -241,7 +241,7 @@ a:hover, a:active {
         </tr>
         {%for i,j in zipped%}
           <tr>
-            <td >{{i.id}}</td>
+            <!-- <td >{{i.id}}</td> -->
             <td >{{j.tankWaterLevel}}</td>
             <td >{{i.soilMoisture}}</td>
             <td >{{i.pH}}</td>
