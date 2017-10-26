@@ -3,7 +3,7 @@
 <html>
 <head>
   <title>Plant {{plant.id}} Database</title>
-  <meta http-equiv="refresh" content="1">
+  <meta http-equiv="refresh" content="10">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
@@ -226,27 +226,28 @@ a:hover, a:active {
     </td>
     <td width="80%" height="600px" bgcolor="white">
     <h2><center>Server Database</center></h2>
-     <tab2>&emsp;&emsp;&emsp;<input type="text" class="id1" id="myInput" onkeyup="myFunction()" placeholder="Search for Data id.." title="Type in a name">
+     <tab2>&emsp;&emsp;&emsp;<input type="text" class="id1" id="myInput" onkeyup="myFunction()" placeholder="Search for data according to date and time..." title="Type in a name">
     <div height="500px" width="100%">
     <div style="overflow-y:scroll; height:500px; width: 100%; align:center">
 
      <table align="center" id="tab">
 
         <tr class="header">
+          <th > Date and Time</th>
           <th >Tank Water Level</th>
           <th >Soil Moisture</th>
           <th >Soil pH</th>
           <th >Temperature</th>
-          <th >Rainfall Chances</th>
+          <th >Raining</th>
         </tr>
         {%for i,j in zipped%}
           <tr>
-            <!-- <td >{{i.id}}</td> -->
+            <td >{{i.date_time}}</td>
             <td >{{j.tankWaterLevel}}</td>
             <td >{{i.soilMoisture}}</td>
             <td >{{i.pH}}</td>
             <td >30</td>
-            <td >False</td>
+            <td >{{i.raining}}</td>
           </tr>
         {%endfor%}
       </table>

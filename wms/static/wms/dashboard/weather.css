@@ -12,10 +12,12 @@
 #weatherData {
   margin: 20px auto auto auto;
   width: 320px;
-  margin-bottom: 30px;
+  margin-bottom: 0px;
+  position: relative;
+  top: 0px;
   z-index: 1;
   padding-left: 20px;
-  padding-bottom: 100px;
+  padding-bottom: 0px;
 }
 
 #temp {

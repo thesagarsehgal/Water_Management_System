@@ -6,6 +6,9 @@ from django.views.generic import View
 from .forms import UserForm,LoginForm
 from django.contrib.auth import logout
 from django.contrib.auth.models import User
+# from django.conf.urls.defaults import *
+# import datetime
+
 def index(request):
 	all_plants=Plant.objects.all()
 	all_tanks=Tank.objects.all()
@@ -22,9 +25,10 @@ def get_data(request):
     soil_moisture=request.GET['sm']
     plant_id=request.GET['pid']
     tank_id=request.GET['tid']
+    is_raining=request.GET['rain']
     p=Plant.objects.get(id=plant_id)
     t=Tank.objects.get(id=tank_id)
-    p.plant_data_set.create(soilMoisture=soil_moisture,pH=7)
+    p.plant_data_set.create(soilMoisture=soil_moisture,pH=7,raining=is_raining)
     t.tank_data_set.create(tankWaterLevel=tank_water_level)
     return redirect('wms:plant_database',plant_id)
 
@@ -55,7 +59,7 @@ def plant_details(request,plant_id):
     percent_plant_soilMoisture=latest_plant.soilMoisture/100
     latest_tank_water_level=plant.tank.tank_data_set.all()[c-1].tankWaterLevel
     percent_tank_water_level=latest_tank_water_level/10
-
+    is_raining=latest_plant.raining
     plant_data10=plant_data.order_by('-id')[:12][::-1]
 
     context={
@@ -69,6 +73,7 @@ def plant_details(request,plant_id):
     'latest_plant_pH':latest_plant_pH,
     'percent_plant_soilMoisture':percent_plant_soilMoisture,
     'percent_plant_pH':percent_plant_pH,
+    'is_raining':is_raining,
     }
     return render(request,'wms/plant_detail.html',context)
 
@@ -91,6 +96,7 @@ def construction(request):
     return render(request,'wms/coming_soon.html')
 
 def plants(request):
+    #plants=User.plant_set.all()
     return render(request,'wms/plants.html')
 
 # class UserFormView(View):
