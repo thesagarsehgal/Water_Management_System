@@ -21,6 +21,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 <!-- <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" /> -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css'>
 <!--// bootstrap-css -->
 <!-- css -->
 
@@ -37,7 +38,166 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,700italic,700,400italic,300italic,300' rel='stylesheet' type='text/css'>
 <!-- //font -->
 <script type="text/javascript" src="{% static 'wms/home/js/jquery-2.1.4.min.js'%}"></script>
+<style type="text/css">
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
+}
+.wid{
+	width: 25em !important;
+}
+input[type="file"] {
+    display: none;
+}
+.custom-file-upload {
+    border: 1px solid black;
+    display: inline-block;
+    font-weight:normal;
+    font-family:'Josefin Sans', sans-serif !important;
+    padding: 4px;
+    cursor: pointer;
+}
+div.ui-btn input[type="submit"] {
+ border:1px solid black !important;
+ text-decoration:none !important;
+ font-family:'Josefin Sans', sans-serif !important;
+ text-align: center !important;
+ font-size: 20px;
+ color:#0cdbff !important;
+ background:white !important;
+}
+.fileContainer{
+	cursor: inherit;
+	font-weight:normal;
+	overflow: hidden;
+	z-index: -1;
+	font-family: 'Josefin Sans', sans-serif;
+	background-color: #fff;
+	display: block;
+}
+.blu{
+  color: #0cdbff;
 
+}
+.background-wrap {
+				position: fixed;
+				z-index: -1000;
+				width: 100vw;
+				margin-top: 0;
+				min-height: 100vh;
+				overflow: hidden;
+				top: 0;
+				left: 0;
+				padding: 0;
+			
+				
+			}
+			
+			#video-bg-elem {
+				position: absolute;
+				top: 0;
+				left: 0;
+				min-height: 100%;
+				min-width: 100%;
+			}
+
+.wrap {
+  z-index: 5;
+  position: absolute;
+  overflow: hidden;
+  top: 10%;
+  right: 10%;
+  bottom: 85px;
+  left: 10%;
+  padding: 20px 50px;
+  display: block;
+  border-radius: 4px;
+  transform: translateY(20px);
+  transition: all 0.5s;
+  visibility: hidden;
+}
+.wrap .content {
+  z-index: 5;
+  font-family: 'Josefin Sans', sans-serif;
+  text-align: center; 
+  opacity: 0;
+}
+.wrap:before {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  background: white;
+  content: "";
+  bottom: 10px;
+  left: 50%;
+  top: 95%;
+  color: #fff;
+  border-radius: 50%;
+  -webkit-transition: all 600ms cubic-bezier(0.215, 0.61, 0.355, 1);
+  transition: all 600ms cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+.wrap.active {
+  z-index: 5;
+  display: block;
+  visibility: visible;
+  box-shadow: 2px 3px 16px silver;
+  transition: all 600ms;
+  transform: translateY(0px);
+  transition: all 0.5s;
+}
+.wrap.active:before {
+  z-index: -3;
+  height: 2100px;
+  width: 2000px;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  margin-left: -1000px;
+  margin-top: -1000px;
+  display: block;
+  -webkit-transition: all 600ms cubic-bezier(0.215, 0.61, 0.355, 1);
+  transition: all 600ms cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+.wrap.active .content {
+  z-index: 0;
+  position: relative;
+  z-index: 1;
+  opacity: 1;
+  transition: all 600ms cubic-bezier(0.55, 0.055, 0.675, 0.19);
+}
+
+.weel.button {
+  z-index: 5;
+  padding: 11px 11px 13px 13px;
+  outline: none;
+  border-radius: 50%;
+  background: #0cdbff;
+  color: #fff;
+  font-size: 24px;
+  display: block;
+  position: fixed;
+  left: 50%;
+  bottom: 20px;
+  top: auto;
+  margin-left: -25px;
+  transition: transform 1.25s;
+}
+.weel.button:hover {
+  z-index: 5;
+  text-decoration: none;
+  background: #fff;
+  color: #0cdbff;
+   transition: transform 0.25s;
+}
+.weel.button.active {
+  z-index: 5;
+  transform: rotate(135deg);
+  transition: transform 0.5s;
+}
+</style>
 <!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 <![endif]-->
@@ -96,6 +256,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				</div>
 			</div>
 			<div class="w3layouts-banner">
+				<div class="background-wrap">
+					<video id="video-bg-elem" preload="auto" autoplay="true" loop="loop"  > 
+						<source src="https://www.youtube.com/watch?v=VoqvPPetDH0" type="video/mp4">
+					</video>          
+				</div>
 				<div class="container">
 					<section class="slider">
 						<div class="flexslider">
@@ -143,8 +308,48 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<!-- banner-bottom --
 <!-- //footer -->
 	<!-- jarallax -->
-	
+	<div class='wrap'>
+  <div class='content'>
+    
+    <form action="/action_page.php">
+  <fieldset style="padding-top:0;">
+    <legend><h2>ADD <span class="blu">PLANT DATA</span></h2></legend>
+    FIRST <span class="blu">NAME</span>:&emsp;&emsp;
+    <input type="text" name="firstname" value="" class="wid">
+    <br><br>
+    LAST <span class="blu">NAME</span>: &emsp;&emsp;
+    <input type="text" name="lastname" value="" class="wid">
+    <br><br>
+    CONTACT <span class="blu">NO.</span>:&emsp;&nbsp;
+    <input type="tel" name="Contact" value="" class="wid" maxlength="10">
+    <br><br>
+    EMAIL <span class="blu">ID</span>:&emsp;&nbsp;:&emsp;&emsp;
+    <input type="email" name="email" value="" class="wid">
+    <br><br>
+    C<span class="blu">IT</span>Y: &emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;
+    <input type="text" name="lastname" value="" class="wid">
+    <br><br>
+    COUN<span class="blu">TRY</span>: &emsp;&emsp;&nbsp;&nbsp;&nbsp;
+    <input type="text" name="lastname" value="" class="wid">
+    <br><br>
+    
+    UPLOAD <span class="blu">PLANT IMAGE</span>:<br>
+    	
+     <label class="custom-file-upload">
+    <input type="file" name="pic" accept="image/*">
+    UPLOAD <span class="blu">IMAGE</span>
+</label>
+    
+    <br><center>
+    <div class="ui-btn">
+    <input type="submit" value="SUBMIT" class="fileContainer"></div></center>
+  </fieldset>
+</form>
+  </div>
+</div>
+	<a class='button glyphicon glyphicon-plus weel' href='#'></a>
 	<script src="{% static 'wms/home/js/SmoothScroll.min.js'%}"></script>
+	<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 	
 	<!-- //jarallax -->
 	
