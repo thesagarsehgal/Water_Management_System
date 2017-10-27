@@ -1,4 +1,4 @@
-from django.shortcuts import render,get_object_or_404
+from django.shortcuts import render,get_object_or_404,HttpResponseRedirect
 from .models import Plant,Tank
 from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate,login
@@ -6,8 +6,8 @@ from django.views.generic import View
 from .forms import UserForm,LoginForm
 from django.contrib.auth import logout
 from django.contrib.auth.models import User
-# from django.conf.urls.defaults import *
-# import datetime
+from django.views.decorators.csrf import csrf_exempt
+# from django.contrib.auth.decorators import login_required
 
 def index(request):
 	all_plants=Plant.objects.all()
@@ -20,6 +20,7 @@ def index(request):
 def about(request):
 	return render(request,'wms/about.html',{})
 
+@csrf_exempt
 def get_data(request):
     tank_water_level=request.GET['twl']
     soil_moisture=request.GET['sm']
@@ -40,14 +41,26 @@ def calc_average(plant_data):
     averagepH=spH/len(plant_data)
     averageSoilMoisture=ssM/len(plant_data)
     return (averagepH,averageSoilMoisture)
+
+# @login_required
 def plant_details(request,plant_id):
+    if not request.user.is_authenticated():
+        return redirect('wms:login_user')
     # getting plan object
     plant=get_object_or_404(Plant,id=plant_id)
     # getting the latest value of tank water level
     c=plant.tank.tank_data_set.count()
+    if(c<12):
+        while(c<12):
+            plant.tank.tank_data_set.create(tankID=plant.tank,tankWaterLevel=0)
+            c+=1
     tank_data=plant.tank.tank_data_set.all()
     tank_data10=tank_data.order_by('-id')[:12][::-1]
-
+    c=plant.plant_data_set.count()
+    if(c<12):
+        while(c<12):
+            plant.plant_data_set.create(plantID=plant,soilMoisture=0,pH=7,raining=False)
+            c+=1
     plant_data=plant.plant_data_set.all()
     (plant.averagepH,plant.averageSoilMoisture)=calc_average(plant_data)
     plant.save()
@@ -57,7 +70,7 @@ def plant_details(request,plant_id):
     percent_plant_pH=latest_plant_pH/1.4
     latest_plant_soilMoisture=latest_plant.soilMoisture
     percent_plant_soilMoisture=latest_plant.soilMoisture/100
-    latest_tank_water_level=plant.tank.tank_data_set.all()[c-1].tankWaterLevel
+    latest_tank_water_level=plant.tank.tank_data_set.all()[len(tank_data)-1].tankWaterLevel
     percent_tank_water_level=latest_tank_water_level/10
     is_raining=latest_plant.raining
     plant_data10=plant_data.order_by('-id')[:12][::-1]
@@ -99,33 +112,6 @@ def plants(request):
     #plants=User.plant_set.all()
     return render(request,'wms/plants.html')
 
-# class UserFormView(View):
-# 	form_class=UserForm(request.POST or None)
-# 	template_name='wms/reg_form.html'
-# 	#displaying a blank form
-# 	def get(self,request):
-# 		form=self.form_class(None)
-# 		return render(request,self.template_name,{'form':form})
-# 	#adding user to database
-# 	def post(self,request):
-# 		form=self.form_class(request.POST)
-# 		if(form.is_valid()):
-# 			user=form.save(commit=False)
-# 			#cleaned data
-# 			username=form.cleaned_data['username']
-# 			password=form.cleaned_data['password']
-# 			user.set_password(password)
-# 			user.username=username
-# 			user.save()
-
-# 			# if credentials are correct
-# 			user=authenticate(username=username,password=password)
-# 			if user is not None:
-# 				if user.is_active:
-# 					login(request,user)
-# 					return redirect('wms:index')
-# 		return render(request,self.template_name,{'form':form})
-
 
 def logout_user(request):
     logout(request)
@@ -138,36 +124,24 @@ def logout_user(request):
 
 
 def login_user(request):
-    if request.method == "POST":
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            if user.is_active:
-                login(request, user)
-                # albums = Album.objects.filter(user=request.user)
-                return render(request, 'wms/index.html')
-            else:
-                return render(request, 'wms/login_new.html', {'error_message': 'Your account has been disabled'})
-        if user is None:
-            return render(request, 'wms/login_new.html', {'error_message': 'Invalid login'})
-    return render(request, 'wms/login_new.html')
-
-# def login_prad(request):
-#     if request.method == "POST":
-#         username = request.POST['username']
-#         password = request.POST['password']
-#         user = authenticate(username=username, password=password)
-#         if user is not None:
-#             if user.is_active:
-#                 login(request, user)
-#                 # albums = Album.objects.filter(user=request.user)
-#                 return render(request, 'wms/index.html')
-#             else:
-#                 return render(request, 'wms/login_pradeep.html', {'error_message': 'Your account has been disabled'})
-#         if user is None:
-#             return render(request, 'wms/login_pradeep.html', {'error_message': 'Invalid login'})
-#     return render(request,'wms/login_pradeep.html',{})
+    if not request.user.is_authenticated():
+        if request.method == "POST":
+            username = request.POST['username']
+            password = request.POST['password']
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                if user.is_active:
+                    login(request, user)
+                    # albums = Album.objects.filter(user=request.user)
+                    # return render(request, 'wms/index.html')
+                    return redirect('wms:index')
+                else:
+                    return render(request, 'wms/login_new.html', {'error_message': 'Your account has been disabled'})
+            if user is None:
+                return render(request, 'wms/login_new.html', {'error_message': 'Invalid login'})
+        return render(request, 'wms/login_new.html')
+    else:
+        return redirect(request.META['HTTP_REFERER'])
 
 def register(request):
     form = UserForm(request.POST or None)

@@ -20,9 +20,10 @@ body{
 }
 /*-- banner --*/
 .banner{
-    background: url(../images/1.jpg) no-repeat 0px 0px;
+    /*background: url(../images/1.jpg) no-repeat 0px 0px;*/
     background-size: cover;
-	min-height:100vh;
+	min-height: 659px;
+    z-index: 5;
 }
 .agileinfo-dot {
     background: url(../images/dott.png)repeat 0px 0px;
@@ -32,13 +33,15 @@ body{
     -o-background-size: 3px;
     -ms-background-size: 3px;
     padding: 0em 0;
-	min-height:100vh;
-	
+	min-height: 659px;
+	z-index: 1;
+    height:100vh;
 }
 .banner-1{
     background: url(../images/1.jpg) no-repeat 0px 0px;
     background-size: cover;
 	min-height:350px;
+    z-index: 1;
 }
 .agileinfo-dot-1 {
     background: url(../images/dott.png)repeat 0px 0px;
@@ -48,18 +51,21 @@ body{
     -o-background-size: 3px;
     -ms-background-size: 3px;
 	min-height:350px;
+    z-index: 1;
 	
 }
 .jarallax {
     position: relative;
     background-size: cover;
     background-repeat: no-repeat;
+    z-index: 1;
     background-position: 50% 50%;
 }
 .header {
     margin: 0em 0 0 0;
     background: rgba(0, 0, 0, 0.54);
     padding: 1em 0;
+    z-index: 1;
 }
 .agileits-logo{
     float: left;
