@@ -138,10 +138,10 @@ def login_user(request):
                 else:
                     return render(request, 'wms/login_new.html', {'error_message': 'Your account has been disabled'})
             if user is None:
-                return render(request, 'wms/login_new.html', {'error_message': 'Invalid login'})
+                return render(request, 'wms/login_new.html', {'error_message': 'Invalid Login Details'})
         return render(request, 'wms/login_new.html')
     else:
-        return redirect(request.META['HTTP_REFERER'])
+        return redirect('wms:index')
 
 def register(request):
     form = UserForm(request.POST or None)
