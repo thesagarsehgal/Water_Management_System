@@ -5,7 +5,7 @@
 <html >
 <head>
   <meta charset="UTF-8">
-  <title>Sign up and login form</title>
+  <title>Log In</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
   <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,100' rel='stylesheet' type='text/css'>
@@ -68,7 +68,8 @@
     	{% csrf_token %}
         <div class="inputbox">
           <input type="text" name="username" placeholder="  USERNAME" id="signupName">
-          <input type="text" name="email" placeholder="  EMAIL" id="signupEmail">
+          <input type="email" name="email" placeholder="  EMAIL" id="signupEmail">
+          <!-- <input type="tel" name="contactno" placeholder=" CONTACT NUMBER" id="signupPhone" maxlength="10" minlength="10">  -->
           <input type="password" name="password" placeholder="  PASSWORD" id="signupPassword">
         </div>
         <button id="signupButton">SIGN UP</button>

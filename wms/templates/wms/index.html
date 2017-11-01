@@ -8,7 +8,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>user</title>
+{%if user.is_authenticated%}
+	<title>{{user.username}}</title>
+{%else%}
+	<title>Home</title>
+{%endif%}
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta charset="utf-8">
 <meta name="keywords" content="Style Decor Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 

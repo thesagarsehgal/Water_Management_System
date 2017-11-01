@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django import forms
-
+from wms.models import Plant
 class UserForm(forms.ModelForm):
 	password=forms.CharField(widget=forms.PasswordInput)
 	class Meta:
@@ -12,3 +12,7 @@ class LoginForm(forms.ModelForm):
 	class Meta:
 		model=User
 		fields=['username','password']
+class AddPlant(forms.ModelForm):
+	class Meta:
+		model=Plant
+		fields=['tank','latitude','longitude']

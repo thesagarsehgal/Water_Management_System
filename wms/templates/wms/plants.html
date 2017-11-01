@@ -115,7 +115,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                                 <a href="{%url 'wms:about'%}">About</a>
                                             </li>
                                                {%if user.is_authenticated%}
-                                            <li><a href="{%url 'wms:plants'%}">Plants</a></li>
+                                            <li class="active"><a href="{%url 'wms:plants'%}">Plants</a></li>
                                             {%endif%}
                                                 
                                                 <!-- <li><a href="#">Profile</a></li> -->
@@ -144,18 +144,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <p>&nbsp;<br></p>
         <h3 class="agileinfo_header">Plants</h3>
             
+
     <div style="width:1000px;margin:80px auto;">
         <div id="ninja-slider" style="float:left;">
             <div class="slider-inner">
-                <ul>
+                <ul><!-- 
                     <li><a class="ns-img" href="{% static 'wms/home/img/1.jpg'%}" onclick="document.location='{%url 'wms:plant_details' 1%}';return false;"><div class="pp">PLANT <span class="blu">1</span></div></a></li>
-                    <li><a class="ns-img" href="{%static 'wms/home/img/2.jpg'%}" onclick="document.location='{%url 'wms:plant_details' 2%}';return false;"><div class="pp">PLANT <span class="blu">2</span></div></a></li>
-                    <!-- <li><a class="ns-img" href="{% static 'wms/home/img/11.jpg'%}" onclick="document.location='index.html';return false;"><div class="pp">PLANT <span class="blu">3</span></div></a></li>
-                    <li><a class="ns-img" href="{% static 'wms/home/img/t1.jpg'%}" onclick="document.location='index.html';return false;"><div class="pp">PLANT <span class="blu">4</span></div></a></li>
-                    <li><a class="ns-img" href="{% static 'wms/home/img/tank.jpg'%}" onclick="document.location='index.html';return false;"><div class="pp">PLANT <span class="blu">5</span></div></a></li>
-                    <li><a class="ns-img" href="{% static 'wms/home/img/6.jpg'%}" onclick="document.location='index.html';return false;"><div class="pp">PLANT <span class="blu">6</span></div></a></li>
-                    <li><a class="ns-img" href="{%static 'wms/home/img/7.jpg'%}" onclick="document.location='index.html';return false;"><div class="pp">PLANT <span class="blu">7</span></div></a></li>
-                    <li><a class="ns-img" href="{%static 'wms/home/img/8.jpg'%}" onclick="document.location='index.html';return false;"><div class="pp">PLANT <span class="blu">8</span></div></a></li> -->
+                    <li><a class="ns-img" href="{%static 'wms/home/img/2.jpg'%}" onclick="document.location='{%url 'wms:plant_details' 2%}';return false;"><div class="pp">PLANT <span class="blu">2</span></div></a></li> -->
+                    {%for i in list%}
+                        <li><a class="ns-img" href="{% static 'wms/home/img/1.jpg'%}" onclick="document.location='{%url 'wms:plant_details' i.id%}';return false;"><div class="pp">PLANT <span class="blu">{{i.id}}</span></div></a></li>
+                    {%endfor%}
                 </ul>
                 
             </div>
@@ -163,31 +161,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         <div id="thumbnail-slider" style="float:left;  ">
             <div class="inner" >
                 <ul>
+                    {%for i in list%}
                     <li>
                         <a class="thumb" href="{% static 'wms/home/img/1.jpg'%}"></a>
                     </li>
-                    <li>
-                        <a class="thumb" href="{% static 'wms/home/img/2.jpg'%}"></a>
-                    </li>
-                  <!--   <li>
-                        <a class="thumb" href="{% static 'wms/home/img/11.jpg'%}"></a>
-                    </li>
-                    <li>
-                        <a class="thumb" href="{% static 'wms/home/img/t1.jpg'%}"></a>
-                    </li>
-                    <li>
-                        <a class="thumb" href="{% static 'wms/home/img/tank.jpg'%}"></a>
-                    </li>
-                    <li>
-                        <a class="thumb" href="{% static 'wms/home/img/6.jpg'%}"></a>
-                    </li>
-                    <li>
-                        <a class="thumb" href="{% static 'wms/home/img/7.jpg'%}"></a>
-                    </li>
-                    <li>
-                        <a class="thumb" href="{% static 'wms/home/img/8.jpg'%}"></a> 
-                    </li>-->
-
+                    {%endfor%}
                 </ul>
             </div>
         </div>

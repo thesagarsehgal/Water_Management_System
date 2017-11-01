@@ -42,11 +42,15 @@ def calc_average(plant_data):
     averageSoilMoisture=ssM/len(plant_data)
     return (averagepH,averageSoilMoisture)
 
+
 # @login_required
 def plant_details(request,plant_id):
     if not request.user.is_authenticated():
         return redirect('wms:login_user')
-    # getting plan object
+    if not Plant.objects.filter(user=request.user,id=plant_id):
+        print("You do not own the plant")
+        return redirect('wms:plants') 
+        # getting plan object
     plant=get_object_or_404(Plant,id=plant_id)
     # getting the latest value of tank water level
     c=plant.tank.tank_data_set.count()
@@ -110,7 +114,10 @@ def construction(request):
 
 def plants(request):
     #plants=User.plant_set.all()
-    return render(request,'wms/plants.html')
+    if not request.user.is_authenticated():
+        return redirect('wms:login_user')
+    # print(Plant.objects.filter(user=request.user))
+    return render(request,'wms/plants.html',{'list':Plant.objects.filter(user=request.user)})
 
 
 def logout_user(request):
@@ -149,6 +156,7 @@ def register(request):
         user = form.save(commit=False)
         username = form.cleaned_data['username']
         email=form.cleaned_data['email']
+        contactno=form.cleaned_data['contactno']
         password = form.cleaned_data['password']
         # user=User.objects.create_user(username=username,password=password,email=email)
         user.set_password(password)
@@ -169,3 +177,11 @@ def register(request):
         "form": form,
     }
     return render(request, 'wms/login_new.html', context)
+
+# def add_plant(request):
+#     form=UserForm(request.Post or None)
+#     if form.is_valid():
+#         plant=form.save(commit=False)
+#         latitude=form.cleaned_data['latitude']
+#         longitude=form.cleaned_data['longitude']
+#         tank=form.tank
