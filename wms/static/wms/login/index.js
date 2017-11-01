@@ -29,3 +29,12 @@ setTimeout(function(){
 setTimeout(function(){
   $('#switch2').click()
 },3000)
+
+$(function() {
+    $("button").click(function() {
+        $("button").attr("disabled", "disabled");
+        setTimeout(function() {
+            $("button").removeAttr("disabled");     
+        }, 3000);
+    });
+});

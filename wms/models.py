@@ -3,12 +3,6 @@ from django.db import models
 from django.contrib.auth.models import Permission, User
 from datetime import datetime    
 from django.core.validators import MinLengthValidator
-
-class UserProfile(models.Model):
-	user=models.OneToOneField(User)
-	contactno=models.CharField(max_length=10,validators=[MinLengthValidator(10)],blank=True)
-	def __str__(self):
-		return "%s's profile"%self.user
 		
 class Tank(models.Model):
 	# foreign key to the user who owns it
@@ -17,8 +11,6 @@ class Tank(models.Model):
 	latitude=models.FloatField(default=0)
 	#longitue of the tank
 	longitude=models.FloatField(default=0)
-	# min_ water level in the tank
-	min_water=models.IntegerField(default=0)
 	def __str__(self):
 		return "Tank "+str(self.id)
 
@@ -35,10 +27,6 @@ class Plant(models.Model):
 	averageSoilMoisture=models.FloatField(default=0)
 	# average pH of by the plant
 	averagepH=models.FloatField(default=0)
-	# ideal Soil Moisture required bty the plant
-	idealSoilMoisture=models.IntegerField(default=0)
-	# ideal pH required by the plant
-	idealpH=models.FloatField(default=0)
 	def __str__(self):
 		return "Plant "+str(self.id)
 

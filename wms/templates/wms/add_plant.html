@@ -1,0 +1,14 @@
+<meta name="csrf_token" content="{{ csrf_token }}">
+{%if error_message%}
+	<b>{{error_message}}</b>
+{%endif%}
+<form role="form" action="{%url 'wms:add_plant'%}" method="post" enctype="multipart/form-data">
+{%csrf_token%}
+	Tank Id:
+        <!-- <input id="tank_id" maxlength="30" name="tank_id" type="number"> -->
+    latitude:
+    	<input id="latitude" maxlength="30" name="latitude" type="number">
+    longitude:
+    	<input id="longitude" maxlength="30" name="longitude" type="number">
+    <button type="submit">Submit</button>
+</form>

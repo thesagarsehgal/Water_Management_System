@@ -23,4 +23,9 @@ urlpatterns = [
     url(r'^plant/(?P<plant_id>[0-9]+)/data/$', views.plant_database,name="plant_database"),
     # /under_construction/ .......... for pages not yet ready
     url(r'^under_construction/$', views.construction,name="construction"),
+    # /add_plant/ ............for adding a new plant
+    url(r'^add_plant/$',views.add_plant,name="add_plant"),
+    url(r'^add_tank/$',views.add_tank,name="add_tank"),
+    url(r'^plant/(?P<plant_id>[0-9]+)/change/$',views.change_location,name="change_location"),
+    
 ]

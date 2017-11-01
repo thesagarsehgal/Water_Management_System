@@ -1,0 +1,15 @@
+
+<h3>Change Location</h3>
+{% if error_message %}
+<p><strong>{{ error_message }}</strong></p>
+{% endif %}
+<form class="form-horizontal" role="form" action="{% url 'wms:change_location' plant_id%}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+      	Latitude:
+        <input id="latitude" maxlength="30" name="latitude" type="text">
+        Longitude:
+    	<input id="longitude" maxlength="30" name="longitude" type="text">
+        <button type="submit">Submit</button>
+</form>
+
+

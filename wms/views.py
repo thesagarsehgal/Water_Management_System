@@ -3,11 +3,10 @@ from .models import Plant,Tank
 from django.shortcuts import render,redirect
 from django.contrib.auth import authenticate,login
 from django.views.generic import View
-from .forms import UserForm,LoginForm
+from .forms import UserForm,LoginForm,AddPlant
 from django.contrib.auth import logout
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
-# from django.contrib.auth.decorators import login_required
 
 def index(request):
 	all_plants=Plant.objects.all()
@@ -100,8 +99,8 @@ def plant_database(request,plant_id):
     tank_data=plant.tank.tank_data_set.all().order_by('-id')
     zipped=zip(plant_data,tank_data)
     context={ 
-    'plant':plant,
-    'zipped':zipped,
+        'plant':plant,
+        'zipped':zipped,
     }
     return render(request,'wms/plant_detail_database.html',context)
 
@@ -113,10 +112,8 @@ def construction(request):
     return render(request,'wms/coming_soon.html')
 
 def plants(request):
-    #plants=User.plant_set.all()
     if not request.user.is_authenticated():
         return redirect('wms:login_user')
-    # print(Plant.objects.filter(user=request.user))
     return render(request,'wms/plants.html',{'list':Plant.objects.filter(user=request.user)})
 
 
@@ -126,7 +123,6 @@ def logout_user(request):
     context = {
         "form": form,
     }
-    # return render(request, 'wms/login.html', context)
     return redirect('wms:index')
 
 
@@ -150,38 +146,53 @@ def login_user(request):
     else:
         return redirect('wms:index')
 
+def change_location(request,plant_id):
+    if(request.user.is_authenticated):
+        if(request.method=="POST"):
+            latitude=request.POST['latitude']
+            longitude=request.POST['longitude']
+            plant=get_object_or_404(Plant,plant_id)
+            plant.latitude(latitude)
+            plant.longitude(longitude)
+            print(plant.latitude)
+            print(plant.longitude)
+            return redirect('wms:plant_details',plant_id)
+        return render(request,'wms/change_location.html',{'plant_id':plant.id})
+
+
 def register(request):
     form = UserForm(request.POST or None)
     if form.is_valid():
         user = form.save(commit=False)
         username = form.cleaned_data['username']
         email=form.cleaned_data['email']
-        contactno=form.cleaned_data['contactno']
         password = form.cleaned_data['password']
-        # user=User.objects.create_user(username=username,password=password,email=email)
         user.set_password(password)
         user.save()
         user = authenticate(username=username, password=password)
-        if(user is None):
-            print("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
-            print(username)
-            print(password)
-            print(email)
         if user is not None:
             if user.is_active:
                 login(request, user)
-                # plants = Plant.objects.filter(user=request.user)
-                # tanks  = Tank.objects.filter(user=request.user)
                 return redirect('wms:index')
     context = {
         "form": form,
     }
     return render(request, 'wms/login_new.html', context)
 
-# def add_plant(request):
-#     form=UserForm(request.Post or None)
-#     if form.is_valid():
-#         plant=form.save(commit=False)
-#         latitude=form.cleaned_data['latitude']
-#         longitude=form.cleaned_data['longitude']
-#         tank=form.tank
+def add_plant(request):
+    if(request.user.is_authenticated):
+        user=request.user
+        if(user.tank_set.count()):
+            default_tank=user.tank_set.all()[0]
+        else:
+            default_tank=Tank.objects.get(id=1)
+        plant=user.plant_set.create(tank=default_tank)
+        return redirect('wms:plant_details',plant.id)
+
+def add_tank(request):
+    if(request.user.is_authenticated):
+        user=request.user
+        tank=user.tank_set.create()
+        return redirect('wms:index')
+
+
