@@ -20,9 +20,9 @@ class Plant(models.Model):
 	# foreign key to tank which waters the plant
 	tank=models.ForeignKey(Tank,on_delete=models.CASCADE)
 	# latitude of the Plant
-	latitude=models.FloatField(default=0)
+	latitude=models.FloatField(default=13.7021)
 	# longitude of the Plant
-	longitude=models.FloatField(default=0)
+	longitude=models.FloatField(default=80.0181)
 	# average Soil Moisture of the plant
 	averageSoilMoisture=models.FloatField(default=0)
 	# average pH of by the plant
@@ -31,26 +31,24 @@ class Plant(models.Model):
 		return "Plant "+str(self.id)
 
 class Plant_Data(models.Model):
-	# plant id of the data 
-	plantID=models.ForeignKey(Plant,on_delete=models.CASCADE)
-	# 
+	# foreign key of the plant 
+	plant=models.ForeignKey(Plant,on_delete=models.CASCADE)
+	# soil moisture of the plant
 	soilMoisture=models.IntegerField(default=0)
+	# soil pH of the plant
 	pH=models.FloatField(default=0)
+	# date and time when it was recorded
 	date_time= models.DateTimeField(default=datetime.now, blank=True)
+	# weather it is raining or not
 	raining=models.BooleanField(default=False)
 	def __str__(self):
 		return "Plant_Data "+str(self.id)
 
 
 class Tank_Data(models.Model):
-	tankID=models.ForeignKey(Tank,on_delete=models.CASCADE)
+	# foreign key of the tank
+	tank=models.ForeignKey(Tank,on_delete=models.CASCADE)
+	# tankWaterLevel of the tank reported
 	tankWaterLevel=models.IntegerField(default=0)
 	def __str__(self):
 		return "Tank_Data "+str(self.id)
-
-class Actuator(models.Model):
-	user = models.ForeignKey(User, default=1)
-	plantID=models.ForeignKey(Plant,on_delete=models.CASCADE)
-	water_supplied=models.IntegerField(default=0)
-	def __str__(self):
-		return "Actuator "+str(self.id)

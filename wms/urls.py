@@ -17,7 +17,7 @@ urlpatterns = [
     url(r'^about/$', views.about,name="about"),
     # /plants/ ........... list of all plants under a user
     url(r'^plants/$', views.plants,name="plants"),
-    # /plant/123/ ....... views the plnt details of the given plant id 
+    # /plant/13/ ....... views the plant details of the given plant id 
     url(r'^plant/(?P<plant_id>[0-9]+)/$', views.plant_details,name="plant_details"),
     # /plant/123/data/ ........... shows the current database of user
     url(r'^plant/(?P<plant_id>[0-9]+)/data/$', views.plant_database,name="plant_database"),
@@ -25,7 +25,8 @@ urlpatterns = [
     url(r'^under_construction/$', views.construction,name="construction"),
     # /add_plant/ ............for adding a new plant
     url(r'^add_plant/$',views.add_plant,name="add_plant"),
-    url(r'^add_tank/$',views.add_tank,name="add_tank"),
-    url(r'^plant/(?P<plant_id>[0-9]+)/change/$',views.change_location,name="change_location"),
+    # /add_tank/ ............ for adding a new Tank
+    # url(r'^add_tank/$',views.add_tank,name="add_tank"),
+    # url(r'^plant/(?P<plant_id>[0-9]+)/change/$',views.change_location,name="change_location"),
     
 ]

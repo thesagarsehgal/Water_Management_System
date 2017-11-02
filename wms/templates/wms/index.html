@@ -86,19 +86,7 @@ div.ui-btn input[type="submit"] {
   color: #0cdbff;
 
 }
-.background-wrap {
-				position: fixed;
-				z-index: -1000;
-				width: 100vw;
-				margin-top: 0;
-				min-height: 100vh;
-				overflow: hidden;
-				top: 0;
-				left: 0;
-				padding: 0;
-			
-				
-			}
+
 			
 			#video-bg-elem {
 				position: absolute;
@@ -237,7 +225,11 @@ div.ui-btn input[type="submit"] {
 												<a href="{%url 'wms:about'%}">About</a>
 											</li>
 												{%if user.is_authenticated%}
+
+                                            <li><a href="{%url 'wms:add_plant'%}">Add Plant</a></li>
 											<li><a href="{%url 'wms:plants'%}">Plants</a></li>
+										
+											
 											{%endif%}
 												<!-- <li><a href="#">Profile</a></li> -->
 													<li>
@@ -260,11 +252,11 @@ div.ui-btn input[type="submit"] {
 				</div>
 			</div>
 			<div class="w3layouts-banner">
-				<div class="background-wrap">
+			<!--	<div class="background-wrap">
 					<video id="video-bg-elem" preload="auto" autoplay="true" loop="loop"  > 
 						<source src="{% static 'wms/home/images/KNOW_The Future of Farming.mp4' %}" type="video/mp4">
 					</video>          
-				</div>
+				</div>-->
 				<div class="container">
 					<section class="slider">
 						<div class="flexslider">

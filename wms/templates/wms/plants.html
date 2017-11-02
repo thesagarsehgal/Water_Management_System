@@ -115,6 +115,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                                 <a href="{%url 'wms:about'%}">About</a>
                                             </li>
                                                {%if user.is_authenticated%}
+                                            
+                                            <li><a href="{%url 'wms:add_plant'%}">Add Plant</a></li>
                                             <li class="active"><a href="{%url 'wms:plants'%}">Plants</a></li>
                                             {%endif%}
                                                 
