@@ -331,8 +331,8 @@ a:hover, a:active {
                         
                         <li><a href="{%url 'wms:plant_details' plant.id%}"><i class="fa fa-home" style="font-size:22px"></i>&nbsp;&nbsp;Home</a></li>
                         <li><a href="{%url 'wms:plant_database' plant.id%}"><i class="fa fa-folder" style="font-size:22px"></i>&nbsp;&nbsp;Database</a></li>
-                        <li><a href="c"><i class="fa fa-bell" style="font-size:22px"></i>&nbsp;&nbsp;Notifications</a></li>
-                        <li><a href="{%url 'wms:construction'%}"><i class="fa fa-cogs" style="font-size:22px"></i>&nbsp;&nbsp;Settings</a></li>
+                        <!-- <li><a href="c"><i class="fa fa-bell" style="font-size:22px"></i>&nbsp;&nbsp;Notifications</a></li>
+                        <li><a href="{%url 'wms:construction'%}"><i class="fa fa-cogs" style="font-size:22px"></i>&nbsp;&nbsp;Settings</a></li> -->
                         
                     </ul>
 
@@ -545,19 +545,29 @@ s
 <!--   WEATHER  -->
 
 <!--MAP-->
+
+{% if is_raining %}
+  <script>
+        console.log("raining");
+        var raining=true;
+  </script>
+{% endif%}
 <script>
       function initMap() {
         var uluru = {lat: 13.7021, lng: 80.0181};
         var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 4,
+          zoom: 5,
           center: uluru
         });
         var marker = new google.maps.Marker({
           position: uluru,
           map: map
         });
+        if(raining)
+          marker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png');
       }
 </script>
+
 <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=  AIzaSyBhY_o76gGVbAfLR7MMga89zw5XBshUPo0&callback=initMap">
 </script>

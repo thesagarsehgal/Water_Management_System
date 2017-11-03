@@ -84,13 +84,13 @@ def plant_details(request,plant_id):
     is_raining=latest_plant.raining
     #latest values of the plant_data
     plant_data10=plant_data.order_by('-id')[:12][::-1]
-
+    print(plant_data10)
     context={
     'plant':plant,#plant
     'latest_tank_water_level':latest_tank_water_level,#last tank water level reported for the tank
     'percent_tank_water_level':percent_tank_water_level,
     'tank_data10':tank_data10,#list of all the database
-    'plant_data10':plant_data,
+    'plant_data10':plant_data10,
     
     'latest_plant_soilMoisture':latest_plant_soilMoisture,
     'latest_plant_pH':latest_plant_pH,
