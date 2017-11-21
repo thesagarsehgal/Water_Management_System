@@ -27,5 +27,5 @@ urlpatterns = [
     url(r'^add_plant/$',views.add_plant,name="add_plant"),
     # /add_tank/ ............ for adding a new Tank
     # url(r'^add_tank/$',views.add_tank,name="add_tank"),
-    # url(r'^plant/(?P<plant_id>[0-9]+)/change/$',views.change_location,name="change_location"),
+    url(r'^plant/(?P<plant_id>[0-9]+)/change/$',views.change_location,name="change_location"),
 ]

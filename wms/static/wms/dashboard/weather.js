@@ -1,5 +1,5 @@
-var city="", icon;
-city="Sri City";
+var  icon;
+// city="Sri City";
 getWeather(city);
 function getWeather(city) { 
   $.getJSON('https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/data/2.5/weather?q='+"Suluru,IN"+'&units=metric&APPID=980c7bce6e29636a5daa7ef7711f0f7e', function(data){         

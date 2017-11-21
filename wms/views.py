@@ -7,7 +7,7 @@ from .forms import UserForm,LoginForm,AddPlant
 from django.contrib.auth import logout
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
-
+import json
 def index(request):
 	all_plants=Plant.objects.all()
 	all_tanks=Tank.objects.all()
@@ -48,7 +48,7 @@ def plant_details(request,plant_id):
     if not request.user.is_authenticated():
         return redirect('wms:login_user')
     if not Plant.objects.filter(user=request.user,id=plant_id):
-        print("You do not own the plant")
+        #print("You do not own the plant")
         return redirect('wms:plants') 
     # getting plant object
     plant=get_object_or_404(Plant,id=plant_id)
@@ -84,7 +84,9 @@ def plant_details(request,plant_id):
     is_raining=latest_plant.raining
     #latest values of the plant_data
     plant_data10=plant_data.order_by('-id')[:12][::-1]
-    print(plant_data10)
+    #print(plant_data10)
+    plant_location=[plant.latitude,plant.longitude,plant.city]
+    print(plant_location)
     context={
     'plant':plant,#plant
     'latest_tank_water_level':latest_tank_water_level,#last tank water level reported for the tank
@@ -97,6 +99,7 @@ def plant_details(request,plant_id):
     'percent_plant_soilMoisture':percent_plant_soilMoisture,
     'percent_plant_pH':percent_plant_pH,
     'is_raining':is_raining,
+    'plant_location':json.dumps(plant_location),
     }
     return render(request,'wms/plant_detail.html',context)
 
@@ -193,16 +196,19 @@ def add_plant(request):
         return redirect('wms:index')
 
 
-# def change_location(request,plant_id):
-#     if(request.user.is_authenticated):
-#         if(request.method=="POST"):
-#             latitude=request.POST['latitude']
-#             longitude=request.POST['longitude']
-#             plant=get_object_or_404(Plant,id=plant_id)
-#             plant.latitude=float(latitude)
-#             plant.longitude=float(longitude)
-#             return redirect('wms:plant_details',plant_id)
-#         return render(request,'wms/change_location.html',{'plant_id':plant_id})
+def change_location(request,plant_id):
+    if(request.user.is_authenticated):
+        if(request.method=="POST"):
+            latitude=request.POST['latitude']
+            longitude=request.POST['longitude']
+            city=request.POST['CityName']
+            plant=get_object_or_404(Plant,id=plant_id)
+            plant.latitude=float(latitude)
+            plant.longitude=float(longitude)
+            plant.city=city
+            plant.save();
+            return redirect('wms:plant_details',plant_id)
+        return render(request,'wms/plant_detail.html',{'plant_id':plant_id})
 
 # def add_tank(request):
 #     if(request.user.is_authenticated):

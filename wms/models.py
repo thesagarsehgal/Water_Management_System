@@ -3,7 +3,7 @@ from django.db import models
 from django.contrib.auth.models import Permission, User
 from datetime import datetime    
 from django.core.validators import MinLengthValidator
-		
+
 class Tank(models.Model):
 	# foreign key to the user who owns it
 	user = models.ForeignKey(User, default=1)
@@ -19,10 +19,11 @@ class Plant(models.Model):
 	user = models.ForeignKey(User, default=1)
 	# foreign key to tank which waters the plant
 	tank=models.ForeignKey(Tank,on_delete=models.CASCADE)
+	city=models.CharField(default="Sri City",max_length=100)
 	# latitude of the Plant
-	latitude=models.FloatField(default=13.7021)
+	latitude=models.FloatField(default=13.5232)
 	# longitude of the Plant
-	longitude=models.FloatField(default=80.0181)
+	longitude=models.FloatField(default=79.9982)
 	# average Soil Moisture of the plant
 	averageSoilMoisture=models.FloatField(default=0)
 	# average pH of by the plant
@@ -43,7 +44,6 @@ class Plant_Data(models.Model):
 	raining=models.BooleanField(default=False)
 	def __str__(self):
 		return "Plant_Data "+str(self.id)
-
 
 class Tank_Data(models.Model):
 	# foreign key of the tank

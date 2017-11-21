@@ -2,7 +2,8 @@
 <head>
 	<!--   icon   -->
 	<title>Plant {{plant.id}}</title>
-	<meta http-equiv="refresh" content="20">
+	<meta http-equiv="refresh" content="30" id="x">
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <!-- pie start-->
@@ -16,9 +17,77 @@
 <!--    sidebar starts  -->
 
 <style>
+.body{
+
+  z-index:0;
+}
+.overlay1 {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  visibility: hidden;
+  opacity: 1;
+}
+.overlay1:target {
+  visibility: visible;
+  opacity: 1;
+}
+#popup1{
+  z-index: 10000;
+}
+.popup2 {
+  margin: 70px auto;
+  padding: 20px;
+  z-index:1000;
+  border-radius: 5px;
+  background: url("{% static 'wms/home/images/location.jpg'%}");
+  height: 50%;
+  width: 50%;
+  background-size: cover;
+  
+  position: relative;
+  transition: all 5s ease-in-out;
+}
+
+.popup2 h2 {
+  margin-top: 0;
+  color: #333;
+  font-family: Tahoma, Arial, sans-serif;
+}
+.popup2 .close1 {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  transition: all 200ms;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #333;
+}
+.popup2 .close1:hover {
+  color: #06D85F;
+}
+.popup2 .content1 {
+  max-height: 100%;
+  overflow: auto;
+  color:black;
+  
+}
+
+@media screen and (max-width: 700px){
+  
+  .popup2{
+    width: 70%;
+  }
+}
+
 /*body{
 	padding:0px;
-}*/
+}*/ 
 .icon {
   margin: 5px 5px;
   width: 70%;
@@ -331,9 +400,31 @@ a:hover, a:active {
                         
                         <li><a href="{%url 'wms:plant_details' plant.id%}"><i class="fa fa-home" style="font-size:22px"></i>&nbsp;&nbsp;Home</a></li>
                         <li><a href="{%url 'wms:plant_database' plant.id%}"><i class="fa fa-folder" style="font-size:22px"></i>&nbsp;&nbsp;Database</a></li>
-                        <!-- <li><a href="c"><i class="fa fa-bell" style="font-size:22px"></i>&nbsp;&nbsp;Notifications</a></li>
-                        <li><a href="{%url 'wms:construction'%}"><i class="fa fa-cogs" style="font-size:22px"></i>&nbsp;&nbsp;Settings</a></li> -->
+                        <!-- <li><a href="{%url 'wms:change_location' plant.id%}"><i class="fa fa-folder" style="font-size:22px"></i>&nbsp;&nbsp;Change Location</a></li> -->
+                        <li><a href="#popup1"><i class="fa fa-bell box" style="font-size:22px"></i>&nbsp;&nbsp;Change Location</a></li>
                         
+                        <div id="popup1" class="overlay1">
+                          
+              <div class="popup2">
+                <h2>Add Location</h2><br>
+                <a class="close1" href="" >&times;</a>
+                <div class="content1">
+                    {% if error_message %}
+                    <p><strong>{{ error_message }}</strong></p>
+                    {% endif %}
+                    <form class="form-horizontal" role="form" action="{% url 'wms:change_location' plant.id%}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                            City Name&emsp;<input id="CityName" maxlength="30" name="CityName" type="text"><br><br>
+                            Latitude&nbsp;&nbsp;&nbsp;&emsp;
+                            <input id="latitude" maxlength="30" name="latitude" type="text"><br><br>
+                            Longitude&emsp;
+                          <input id="longitude" maxlength="30" name="longitude" type="text"><br><br>
+                            <button type="submit">Submit</button>
+                    </form>
+
+                </div>
+              </div>
+            </div>
                     </ul>
 
                     <br>
@@ -525,19 +616,6 @@ a:hover, a:active {
 		</tr>
 	</table>
 
-<!--
-2:55 26-10-2017
-
-
-
-
-
-
-
-
--->
-<!-- weather widget start --><!--a target="_blank" href="http://www.booked.net/weather/vellore-34712"><img src="https://w.bookcdn.com/weather/picture/32_34712_1_1_95a5a6_250_7f8c8d_ffffff_ffffff_1_2071c9_ffffff_0_6.png?scode=124&domid=w209&anc_id=91615"  alt="booked.net"/></a><!-- weather widget end -->
-s
 
 </body>
 <!-- WEATHER -->
@@ -547,14 +625,29 @@ s
 <!--MAP-->
 
 {% if is_raining %}
-  <script>
+  <script type="text/javascript">
         console.log("raining");
         var raining=true;
+        // console.log({{plant_location|safe}});
+        var l={{plant_location|safe}};
+        var lati=l[0];
+        var longi=l[1];
+        var city=l[2];
+  </script>
+{% else%}
+  <script type="text/javascript">
+    raining=false;
+    var l={{plant_location|safe}};
+    var lati=l[0];
+    var longi=l[1];
+    var city=l[2];
   </script>
 {% endif%}
+
 <script>
+      // console.log(city);
       function initMap() {
-        var uluru = {lat: 13.7021, lng: 80.0181};
+        var uluru = {lat: lati, lng: longi};
         var map = new google.maps.Map(document.getElementById('map'), {
           zoom: 5,
           center: uluru
@@ -578,6 +671,7 @@ s
 <script src="{% static 'wms/dashboard/pie.js'%}"></script> 
 
 <script>
+  // ;
 	function graphKa(paraSF,gr) {
 			var chart = new CanvasJS.Chart("chartContainer", {
 			animationEnabled: true,
